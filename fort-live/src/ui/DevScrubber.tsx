@@ -1,4 +1,6 @@
+import { useMemo } from 'react';
 import { SESSIONS } from '../session/scenarios';
+import type { SessionEvent } from '../session/types';
 import './DevScrubber.css';
 
 interface Props {
@@ -39,6 +41,8 @@ export function DevScrubber(p: Props) {
 
       <p className="scrub-note">{session.note}</p>
 
+      <EventTape events={session.events} now={p.now} />
+
       <div className="scrub-row">
         <button type="button" className="chip" onClick={() => p.onPlayingChange(!p.playing)}>
           {p.playing ? 'pause' : 'play'}
@@ -75,6 +79,76 @@ export function DevScrubber(p: Props) {
       </div>
     </aside>
   );
+}
+
+const TAPE_LINES = 7;
+
+/**
+ * The wire, made visible.
+ *
+ * Everything the panel above knows, it learned from these lines and nothing
+ * else. That is easy to assert in a README and easy to disbelieve, so the tape
+ * puts the raw stream next to the rendering and lets the two be watched
+ * together — a rep scrolls past here and the figure lights up there.
+ *
+ * It matters most on the MM-Fit session, where these lines came off a real
+ * wrist. The stream is deliberately sparse (see BANDWIDTH_NOTE in types.ts) and
+ * that is visible too: minutes of nothing but heart rate, then a burst of reps.
+ * A panel fed a 100 Hz sample stream could not have a readout like this,
+ * because there would be nothing to read.
+ */
+function EventTape({ events, now }: { events: SessionEvent[]; now: number }) {
+  // Events are time-ordered, so stop at the first one that has not happened.
+  const recent = useMemo(() => {
+    const out: SessionEvent[] = [];
+    for (const e of events) {
+      if (e.t > now) break;
+      out.push(e);
+    }
+    return { lines: out.slice(-TAPE_LINES), total: out.length };
+  }, [events, now]);
+
+  return (
+    <div className="tape" aria-hidden>
+      <div className="tape-head">
+        <span>event stream</span>
+        <span className="num">
+          {recent.total} / {events.length}
+        </span>
+      </div>
+      <ol className="tape-lines">
+        {recent.lines.map((e) => (
+          <li key={`${e.t}-${e.type}-${describe(e)}`} className={`tape-line tape-${e.type}`}>
+            <span className="tape-t num">{mmss(e.t)}</span>
+            <span className="tape-kind">{KIND[e.type]}</span>
+            <span className="tape-detail num">{describe(e)}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+const KIND: Record<SessionEvent['type'], string> = {
+  set_start: 'set',
+  rep: 'rep',
+  set_end: 'end',
+  hr: 'hr',
+};
+
+function describe(e: SessionEvent): string {
+  switch (e.type) {
+    case 'set_start':
+      return `${e.exerciseId} #${e.setIdx + 1}`;
+    case 'rep':
+      return `${e.exerciseId} r${e.repIdx + 1} ${e.concentricVelocity.toFixed(2)}m/s rom${e.romFrac
+        .toFixed(2)
+        .slice(1)}`;
+    case 'set_end':
+      return `${e.exerciseId} closed`;
+    case 'hr':
+      return `${Math.round(e.bpm)} bpm`;
+  }
 }
 
 function mmss(t: number): string {

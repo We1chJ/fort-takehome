@@ -31,6 +31,106 @@
   color: var(--ink-faint);
 }
 
+/* The event tape ------------------------------------------------------- */
+
+.tape {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  background: rgba(8, 8, 10, 0.6);
+}
+
+.tape-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* Fixed height for exactly TAPE_LINES rows. A tape that grows and shrinks as
+   events arrive would shove the transport controls around under the cursor. */
+/* Height is exactly TAPE_LINES rows. No gap between rows — with one, seven
+   rows plus six gaps overflowed the box and clipped the oldest line in half.
+   Row spacing lives in line-height instead, where it cannot drift out of sync
+   with the container. */
+.tape-lines {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: calc(7 * 14px);
+  overflow: hidden;
+}
+
+.tape-line {
+  display: grid;
+  grid-template-columns: 30px 22px 1fr;
+  gap: 6px;
+  align-items: baseline;
+  height: 14px;
+  font-size: 10px;
+  line-height: 14px;
+  white-space: nowrap;
+  color: var(--ink-faint);
+  animation: tape-in 260ms var(--ease);
+}
+
+/* Older lines recede rather than scroll away, so the newest is always the
+   brightest thing in the box. */
+.tape-line:nth-last-child(1) { opacity: 1; }
+.tape-line:nth-last-child(2) { opacity: 0.88; }
+.tape-line:nth-last-child(3) { opacity: 0.78; }
+.tape-line:nth-last-child(4) { opacity: 0.68; }
+.tape-line:nth-last-child(5) { opacity: 0.58; }
+.tape-line:nth-last-child(6) { opacity: 0.48; }
+.tape-line:nth-last-child(n + 7) { opacity: 0.4; }
+
+@keyframes tape-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+.tape-t {
+  color: var(--ink-faint);
+  text-align: right;
+}
+
+.tape-kind {
+  letter-spacing: 0.08em;
+  color: var(--ink-dim);
+}
+
+.tape-detail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ink-dim);
+}
+
+/* A rep is the only event the panel above actually redraws for. */
+.tape-rep .tape-kind,
+.tape-rep .tape-detail {
+  color: var(--accent);
+}
+
+.tape-set_start .tape-kind,
+.tape-set_end .tape-kind {
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tape-line {
+    animation: none;
+  }
+}
+
 .chip {
   font: inherit;
   font-size: var(--step--1);

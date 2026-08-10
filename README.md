@@ -1,37 +1,14 @@
-# Fort take-home — working notes
+# Fort Takehome
 
-Research, prototype and model work for the Fort submission.
-
-| File | What it is |
-|---|---|
-| `fort-research.md` | Company dossier — product, founders, public quotes, prototype options, ranked |
-| `datasets-and-training.md` | Public dataset survey against Fort's sensor suite, plus prior art |
-| `narrative-layer.md` | Design + architecture for the interpretation layer |
-| `q1-data-project.md`, `q3-motivation.md` | Application answers |
-| `idea.md` | Loose notes |
-| `fort-live/` | **Between Sets** — the prototype panel (Vite + React + TS) |
-| `scripts/mmfit_classify.py` | Exercise classifier + rep detector trained on MM-Fit |
-| `mm-fit/` | The unzipped MM-Fit dataset (1.6 GB, not committed) |
-
----
+## Features
+- A trained ML model turning IMU + Heartrate data into exercises, rep counts, etc.
+- A mock mobile dashboard for the companion app to provide visualization for exercising data in short-term, showing results of processing real-time data from the dataset.
+- 
 
 ## Exercise classification from wrist IMU
 
 `scripts/mmfit_classify.py`. Trained and validated in one session against
 [MM-Fit](https://mmfit.github.io/).
-
-```bash
-python3 scripts/mmfit_classify.py             # train + full report
-# hold one workout out, label it, and write the result as a SessionEvent stream
-# that fort-live plays exactly like an authored scenario:
-python3 scripts/mmfit_classify.py --emit w14 --out fort-live/src/data/mmfit-session.json
-```
-
-The `--emit` path is what connects the two halves of this repo. It fits the model on the
-other twenty workouts, predicts this one, detects its reps, derives per-rep kinematics,
-attaches the real heart-rate trace, and writes the whole thing in `fort-live`'s
-`SessionEvent` schema. The panel then has no idea it is not synthetic — which was the
-point of writing that schema down first. Pick it in the prototype as **MM-Fit w14 (real)**.
 
 ### Approach
 
