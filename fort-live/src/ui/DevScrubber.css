@@ -25,9 +25,29 @@
   flex-wrap: wrap;
 }
 
-.scrub-note {
+/* The movements in the selected session, in the order they were performed. */
+.exlist {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+}
+
+.exlist-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
   font-size: var(--step--1);
-  line-height: 1.45;
+  line-height: 1.2;
+  color: var(--ink-dim);
+  padding: 2px 7px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.exlist-sets {
+  font-size: 9px;
   color: var(--ink-faint);
 }
 

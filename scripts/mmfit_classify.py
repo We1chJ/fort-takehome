@@ -226,6 +226,18 @@ PRE_ROLL_S = 25.0      # quiet lead-in before the first set, so the panel opens 
 HR_EVERY_S = 5.0
 ROM_FLOOR = 0.15       # a detected rep always moved something
 
+# The three workouts the prototype lets you play, chosen because they differ in
+# ways a single workout could not show:
+#   w14  27 sets in 25 min, all nine movements  — a brisk complete session
+#   w09  27 sets in 56 min, all nine            — the same work at half the pace
+#   w20  24 sets in 46 min, no shoulder press   — a session with a gap in it
+PLAYABLE = ["w14", "w09", "w20"]
+
+# No heart-rate stream on the wrist for these three. Energy comes from HR, so
+# including them would mean a session with a blank where the one number on the
+# main screen goes. Left out, and said so, rather than back-filled.
+NO_HR = ["w05", "w10", "w18"]
+
 
 def _rep_windows(times, dur_s, count):
     """
@@ -275,18 +287,25 @@ def _wrist_speed(a_win, fs):
     return float(np.linalg.norm(v, axis=1).mean())
 
 
-def emit_session(w, clf, X, y, groups, meta, out_path):
-    labels, acc_all, gyr_all = load_workout(w)
+def build_session(w, pred_all, y, meta, hr_every_s=HR_EVERY_S):
+    """
+    One workout as a fort-live Session dict.
+
+    `pred_all` is the leave-one-workout-out prediction vector from main(): every
+    entry was produced by a model fitted without the workout it labels. Reusing
+    it here rather than refitting per workout is not just cheaper, it is the
+    same guarantee applied uniformly — there is no path through this function
+    that can accidentally label a workout with a model that saw it.
+    """
     idx = [i for i, m in enumerate(meta) if m["w"] == w]
     if not idx:
-        print(f"no sets for {w}", file=sys.stderr)
-        return
+        return None
 
     # --- per-set inference
     sets = []
     for i in idx:
         m = meta[i]
-        pred = clf.predict(X[i:i + 1])[0]
+        pred = pred_all[i]
         app_id = MMFIT_TO_APP.get(pred)
         if app_id is None:
             continue
@@ -362,7 +381,7 @@ def emit_session(w, clf, X, y, groups, meta, out_path):
             t = frame / FPS - t0
             if t < 0 or t > end_t + 10:
                 continue
-            if t - last < HR_EVERY_S:
+            if t - last < hr_every_s:
                 continue
             last = t
             events.append({"type": "hr", "t": round(t, 2), "bpm": round(float(bpm), 1)})
@@ -378,16 +397,15 @@ def emit_session(w, clf, X, y, groups, meta, out_path):
     # see on the screen.
     octaves = int(np.sum((rep_err >= 4) | (rep_err <= -4)))
     mae = float(np.abs(rep_err).mean())
-    session = {
+    exercises = sorted({s["appId"] for s in sets})
+    return {
         "id": f"mmfit-{w}",
-        "label": f"MM-Fit {w} (real)",
+        "label": f"{w} · {len(sets)} sets · {max(e['t'] for e in events) / 60:.0f} min",
         "note": (
-            f"MM-Fit workout {w}, replayed through the Q1 classifier instead of the "
-            f"generator. Exercise labels are predictions from a model that never saw "
-            f"this workout — {correct}/{len(sets)} correct. Reps are detected, not "
-            f"counted: {mae:.1f} mean error, and {octaves} of {len(sets)} sets land an "
-            f"octave out (every true set here is 10 reps). Set timing and heart rate "
-            f"are measured."
+            f"MM-Fit workout {w}. Exercise labels are predictions from a model that "
+            f"never saw this workout — {correct}/{len(sets)} correct. Reps are detected, "
+            f"not counted: {mae:.1f} mean error, {octaves} of {len(sets)} sets an octave "
+            f"out (every true set here is 10 reps). Set timing and heart rate are measured."
         ),
         "bodyMassKg": 78,
         "source": {
@@ -395,6 +413,7 @@ def emit_session(w, clf, X, y, groups, meta, out_path):
             "workout": w,
             "heldOut": True,
             "setsEmitted": len(sets),
+            "exercises": exercises,
             "exerciseAccuracy": round(correct / len(sets), 3),
             "repMAE": round(mae, 2),
             "repOctaveErrors": octaves,
@@ -403,22 +422,84 @@ def emit_session(w, clf, X, y, groups, meta, out_path):
             "detected": [f"rep count and rep timing (MAE {mae:.2f}, {octaves} octave errors)"],
             "derived": ["romFrac (wrist angular path, per-exercise normalised)",
                         "concentricVelocity (wrist speed, integrated accel)"],
-            "invented": ["bodyMassKg"],
+            "invented": ["bodyMassKg", "calendar placement of history sessions"],
         },
         "events": events,
     }
 
+
+def emit_bundle(pred_all, y, groups, meta, out_path):
+    """
+    Every usable workout, in one file: three to play and the rest as history.
+
+    The history is what makes the panel's comparisons mean anything — "harder
+    than your usual" needs a usual. It used to be generated, which made the live
+    session real and the yardstick imaginary. Both ends are measured now.
+    """
+    usable = [w for w in WORKOUTS if w not in NO_HR]
+    hist_ws = [w for w in usable if w not in PLAYABLE]
+
+    playable, history, skipped = [], [], []
+    for w in PLAYABLE:
+        s = build_session(w, pred_all, y, meta)
+        if s:
+            playable.append(s)
+
+    # Spread across the trailing month. MM-Fit's timestamps are the dates the
+    # dataset was recorded, not a training log, so the calendar here is assigned
+    # rather than measured — the one invented field in the whole file.
+    # History heart rate is subsampled four times harder than the playable
+    # sessions'. Nothing reads it per-beat — it only ever integrates to a
+    # session kcal total, and a 20-second step changes that by well under the
+    # +/-20% the Keytel estimate already carries. The playable sessions keep the
+    # 5-second cadence because the panel shows a live bpm.
+    n = len(hist_ws)
+    for i, w in enumerate(hist_ws):
+        s = build_session(w, pred_all, y, meta, hr_every_s=20.0)
+        if not s:
+            skipped.append(w)
+            continue
+        history.append({
+            "daysAgo": 1 + round(i * 29 / max(1, n - 1)),
+            "label": w,
+            "workout": w,
+            "events": s["events"],
+        })
+
+    total_sets = sum(s["source"]["setsEmitted"] for s in playable) + \
+        sum(len({e["setIdx"] for e in h["events"] if e["type"] == "set_start"}) for h in history)
+    bundle = {
+        "dataset": "MM-Fit (MIT) — mmfit.github.io",
+        "sensor": "left-wrist smartwatch, accel + gyro ~100 Hz, HR 1 Hz",
+        "heldOut": True,
+        "workoutsPlayable": PLAYABLE,
+        "workoutsHistory": [h["workout"] for h in history],
+        "workoutsExcluded": {w: "no wrist heart-rate stream" for w in NO_HR},
+        "totalSets": total_sets,
+        "playable": playable,
+        "history": history,
+    }
     with open(out_path, "w") as f:
-        json.dump(session, f, indent=1)
-    print(f"\nwrote {len(events)} events / {len(sets)} sets -> {out_path}")
-    print(f"  exercise accuracy on {w}: {correct}/{len(sets)} = {correct/len(sets):.3f}")
-    print(f"  rep MAE on {w}: {float(np.abs(rep_err).mean()):.2f}")
-    print(f"  hr events: {hr_n}   session length: {max(e['t'] for e in events)/60:.1f} min")
+        json.dump(bundle, f, separators=(",", ":"))
+
+    ev = sum(len(s["events"]) for s in playable) + sum(len(h["events"]) for h in history)
+    size = os.path.getsize(out_path) / 1024
+    print(f"\nwrote {ev} events -> {out_path}  ({size:.0f} KB)")
+    print(f"  playable: {', '.join(PLAYABLE)}")
+    print(f"  history : {len(history)} workouts over 30 days")
+    print(f"  excluded: {', '.join(NO_HR)} (no HR)")
+    for s in playable:
+        src = s["source"]
+        print(f"    {src['workout']}: {src['setsEmitted']} sets · "
+              f"acc {src['exerciseAccuracy']:.3f} · repMAE {src['repMAE']:.2f} · "
+              f"{len(src['exercises'])} exercises")
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--emit", metavar="WORKOUT", help="dump a SessionEvent stream for one workout")
+    ap.add_argument("--emit-all", action="store_true",
+                    help="dump every usable workout: three playable, the rest as history")
     ap.add_argument("--out", default="/tmp/mmfit_session.json")
     ap.add_argument("--keep-cardio", action="store_true")
     args = ap.parse_args()
@@ -478,11 +559,20 @@ def main():
     print(f"bias            : {float(errs.mean()):+.2f} reps (positive = over-count)")
 
     # ---- optional emit
-    if args.emit:
-        # The held-out fit: this workout contributed nothing to the model that
-        # is about to label it. Anything less and the demo is a lookup table.
-        clf.fit(X[groups != args.emit], y[groups != args.emit])
-        emit_session(args.emit, clf, X, y, groups, meta, args.out)
+    # `pred` above is already leave-one-workout-out: every label was produced by
+    # a model fitted without the workout it labels. The emitters reuse it rather
+    # than refitting, so there is no code path that can leak a workout into the
+    # model that labels it.
+    if args.emit_all:
+        emit_bundle(pred, y, groups, meta, args.out)
+    elif args.emit:
+        s = build_session(args.emit, pred, y, meta)
+        if s is None:
+            print(f"no sets for {args.emit}", file=sys.stderr)
+        else:
+            with open(args.out, "w") as f:
+                json.dump(s, f, indent=1)
+            print(f"\nwrote {len(s['events'])} events -> {args.out}")
 
 
 if __name__ == "__main__":

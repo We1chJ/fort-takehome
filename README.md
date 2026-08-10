@@ -2,13 +2,28 @@
 
 ## Features
 - A trained ML model turning IMU + Heartrate data into exercises, rep counts, etc.
-- A mock mobile dashboard for the companion app to provide visualization for exercising data in short-term, showing results of processing real-time data from the dataset.
-- 
+- A mock mobile dashboard for the companion app with 3 tabs:
+   - exercising data visualization in short-term, showing results of processing real-time data from the dataset
+   - montly report page for trend summaries and training advice, as well as an AI chat interface
+   - family features to supportt remote care + health tracking for grandparents or children 
+
 
 ## Exercise classification from wrist IMU
 
 `scripts/mmfit_classify.py`. Trained and validated in one session against
 [MM-Fit](https://mmfit.github.io/).
+
+```bash
+python3 scripts/mmfit_classify.py    # train + full report
+# every session the dashboard shows, straight from the model:
+python3 scripts/mmfit_classify.py --emit-all --out fort-live/src/data/mmfit.json
+```
+
+`--emit-all` is the join between the two halves of this repo. Each workout is labelled by a
+model fitted without it, its reps detected, its per-rep kinematics derived and its real
+heart-rate trace attached, then written in `fort-live`'s `SessionEvent` schema — three
+workouts playable, fifteen as the baseline history, three dropped for having no heart-rate
+stream. The dashboard has no generator behind it.
 
 ### Approach
 

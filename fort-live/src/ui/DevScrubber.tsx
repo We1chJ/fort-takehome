@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { getExercise } from '../data/patterns';
 import { SESSIONS } from '../session/scenarios';
 import type { SessionEvent } from '../session/types';
 import './DevScrubber.css';
@@ -39,7 +40,7 @@ export function DevScrubber(p: Props) {
         ))}
       </div>
 
-      <p className="scrub-note">{session.note}</p>
+      <ExerciseList events={session.events} />
 
       <EventTape events={session.events} now={p.now} />
 
@@ -78,6 +79,46 @@ export function DevScrubber(p: Props) {
         ))}
       </div>
     </aside>
+  );
+}
+
+/**
+ * What is actually in the session you picked.
+ *
+ * This replaced a paragraph about held-out accuracy and rep error. That belongs
+ * in the write-up, not in front of someone trying to choose a session — the
+ * question a chip raises is "what is in this one?", and the answer is a list of
+ * movements, in the order they were performed, with a count.
+ *
+ * The names are the classifier's output resolved through the app's exercise
+ * table, so this is a list of what the model decided, not of what MM-Fit
+ * labelled. On w20 that difference is visible: the model reads several squat
+ * sets as lateral raises, and no squat appears here at all.
+ */
+function ExerciseList({ events }: { events: SessionEvent[] }) {
+  const items = useMemo(() => {
+    const order: string[] = [];
+    const count: Record<string, number> = {};
+    for (const e of events) {
+      if (e.type !== 'set_start') continue;
+      if (!(e.exerciseId in count)) {
+        order.push(e.exerciseId);
+        count[e.exerciseId] = 0;
+      }
+      count[e.exerciseId]++;
+    }
+    return order.map((id) => ({ id, name: getExercise(id).name, sets: count[id] }));
+  }, [events]);
+
+  return (
+    <ul className="exlist">
+      {items.map((e) => (
+        <li key={e.id} className="exlist-item">
+          {e.name}
+          <span className="exlist-sets num">×{e.sets}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
 

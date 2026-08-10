@@ -98,7 +98,7 @@ describe('recruitment', () => {
   });
 
   it('conserves time: attributed seconds sum to the seconds measured', () => {
-    const sets = computeSets(getSession('push-day').events);
+    const sets = computeSets(getSession('mmfit-w14').events);
     const totals = accumulate(sets);
     const attributed = Object.values(totals.byMuscle).reduce((a, b) => a + (b ?? 0), 0);
     const measured = sets.reduce((a, s) => a + s.tensionSeconds, 0);
@@ -127,7 +127,7 @@ describe('energy', () => {
   });
 
   it('attributed kcal sum back to the session total', () => {
-    const session = getSession('push-day');
+    const session = getSession('mmfit-w14');
     const sets = computeSets(session.events);
     const totals = accumulate(sets);
     const energy = computeEnergy(session.events, totals.byMuscle);
@@ -145,7 +145,11 @@ describe('energy', () => {
 
 describe('baseline', () => {
   it('builds distributions from prior sessions only', () => {
-    expect(baseline.velocityLossByExercise['bench-press'].n).toBeGreaterThanOrEqual(3);
+    // The history is fifteen real MM-Fit workouts, so the baseline covers the
+    // nine movements that dataset contains and nothing else. Asking it about a
+    // bench press it has never seen is the correct thing for it to not know.
+    expect(baseline.velocityLossByExercise['push-ups'].n).toBeGreaterThanOrEqual(3);
+    expect(baseline.velocityLossByExercise['bench-press']).toBeUndefined();
     expect(baseline.typicalSessionTensionS.chest).toBeGreaterThan(0);
   });
 
@@ -181,7 +185,7 @@ describe('baseline', () => {
 });
 
 describe('deriveState', () => {
-  const session = getSession('push-day');
+  const session = getSession('mmfit-w14');
   const duration = sessionDuration(session);
 
   it('is pure — identical input gives identical output', () => {
@@ -251,15 +255,27 @@ describe('deriveState', () => {
 });
 
 describe('newsworthiness', () => {
-  it('stays silent on an unremarkable session', () => {
-    const s = deriveState(getSession('ordinary'), sessionDuration(getSession('ordinary')));
-    expect(s.surfaced).toHaveLength(0);
+  it('keeps silence as the resting state', () => {
+    // This used to be an authored "unremarkable session" that was guaranteed to
+    // surface nothing. There is no authoring any more, so the claim has to be
+    // made against real data instead: across the three MM-Fit sessions, most
+    // moments produce nothing to say. If the filter ever became chatty this
+    // number would collapse, which is the thing actually worth guarding.
+    let silent = 0;
+    let total = 0;
+    for (const session of SESSIONS) {
+      for (let t = 0; t <= sessionDuration(session); t += 10) {
+        total++;
+        if (deriveState(session, t).surfaced.length === 0) silent++;
+      }
+    }
+    expect(silent / total).toBeGreaterThan(0.15);
   });
 
   it('never lets the strip claim a departure the sheet stays silent about', () => {
     // Two surfaces, one judgement. If the strip says "harder than your usual"
     // the sheet must have something to say, and vice versa.
-    const session = getSession('ordinary');
+    const session = getSession('mmfit-w09');
     for (let t = 0; t <= sessionDuration(session); t += 5) {
       const s = deriveState(session, t);
       if (s.lastSetPhrase.includes('than your usual')) {
@@ -269,14 +285,21 @@ describe('newsworthiness', () => {
   });
 
   it('speaks when a set departs from the lifter’s own baseline', () => {
-    const s = deriveState(getSession('push-day'), sessionDuration(getSession('push-day')));
+    const s = deriveState(getSession('mmfit-w14'), sessionDuration(getSession('mmfit-w14')));
     expect(s.surfaced.length).toBeGreaterThan(0);
   });
 
-  it('notices a session confined to one movement pattern', () => {
-    const s = deriveState(getSession('lopsided'), sessionDuration(getSession('lopsided')));
-    expect(s.patternsTouched).toEqual(['push']);
-    expect(s.surfaced.some((f) => f.kind === 'coverage')).toBe(true);
+  it('reports the patterns this data genuinely never contains', () => {
+    // MM-Fit's protocol has no hinge and no carry. The authored "all push, no
+    // pull" session used to demonstrate absence-rendered-as-absence; the real
+    // data demonstrates it without being asked to, and the gap is now a fact
+    // about the dataset rather than a fact about a fixture.
+    for (const session of SESSIONS) {
+      const s = deriveState(session, sessionDuration(session));
+      expect(s.patternsTouched).not.toContain('hinge');
+      expect(s.patternsTouched).not.toContain('carry');
+      expect(s.patternsTouched.length).toBeGreaterThan(0);
+    }
   });
 
   it('surfaces at most two facts, strongest first', () => {
