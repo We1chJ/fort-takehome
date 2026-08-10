@@ -1,0 +1,93 @@
+.body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.body-svg {
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+}
+
+.region {
+  fill: var(--accent);
+  stroke: none;
+  cursor: pointer;
+  /* Scale about each polygon's own centre, not the SVG origin. */
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: fill-opacity 1100ms var(--ease);
+}
+
+/* A brief swell on the group that was just trained. It decays on its own —
+   nothing on this screen waits to be dismissed. */
+@keyframes region-swell {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.region-pulse {
+  animation: region-swell 1600ms var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .region {
+    transition: none;
+  }
+  .region-pulse {
+    animation: none;
+  }
+}
+
+.region-selected {
+  stroke: var(--ink);
+  stroke-width: 0.7;
+  stroke-linejoin: round;
+}
+
+.region-inert {
+  fill: var(--muscle-rest);
+  fill-opacity: 0.55;
+}
+
+.body-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.body-flip {
+  background: none;
+  border: none;
+  color: var(--ink-faint);
+  font: inherit;
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  padding: var(--space-1) 0;
+  cursor: pointer;
+}
+
+.body-flip:hover {
+  color: var(--ink-dim);
+}
+
+.selected-name {
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  color: var(--ink-dim);
+}

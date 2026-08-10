@@ -1,0 +1,368 @@
+[
+  {
+    "id": "bench-press",
+    "name": "bench press",
+    "sourceName": "Barbell Bench Press - Medium Grip",
+    "pattern": "push",
+    "force": "push",
+    "mechanic": "compound",
+    "equipment": "barbell",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "triceps"
+    ]
+  },
+  {
+    "id": "back-squat",
+    "name": "back squat",
+    "sourceName": "Barbell Squat",
+    "pattern": "squat",
+    "force": "push",
+    "mechanic": "compound",
+    "equipment": "barbell",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings",
+      "lower back"
+    ]
+  },
+  {
+    "id": "romanian-deadlift",
+    "name": "romanian deadlift",
+    "sourceName": "Romanian Deadlift",
+    "pattern": "hinge",
+    "force": "pull",
+    "mechanic": "compound",
+    "equipment": "barbell",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "lower back"
+    ]
+  },
+  {
+    "id": "deadlift",
+    "name": "deadlift",
+    "sourceName": "Barbell Deadlift",
+    "pattern": "hinge",
+    "force": "pull",
+    "mechanic": "compound",
+    "equipment": "barbell",
+    "primaryMuscles": [
+      "lower back"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "forearms",
+      "glutes",
+      "hamstrings",
+      "lats",
+      "middle back",
+      "quadriceps",
+      "traps"
+    ]
+  },
+  {
+    "id": "pull-ups",
+    "name": "pull-ups",
+    "sourceName": "Pullups",
+    "pattern": "pull",
+    "force": "pull",
+    "mechanic": "compound",
+    "equipment": "body only",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "middle back"
+    ]
+  },
+  {
+    "id": "barbell-row",
+    "name": "barbell row",
+    "sourceName": "Bent Over Barbell Row",
+    "pattern": "pull",
+    "force": "pull",
+    "mechanic": "compound",
+    "equipment": "barbell",
+    "primaryMuscles": [
+      "middle back"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "lats",
+      "shoulders"
+    ]
+  },
+  {
+    "id": "cable-row",
+    "name": "cable row",
+    "sourceName": "Seated Cable Rows",
+    "pattern": "pull",
+    "force": "pull",
+    "mechanic": "compound",
+    "equipment": "cable",
+    "primaryMuscles": [
+      "middle back"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "lats",
+      "shoulders"
+    ]
+  },
+  {
+    "id": "overhead-press",
+    "name": "overhead press",
+    "sourceName": "Standing Military Press",
+    "pattern": "push",
+    "force": "push",
+    "mechanic": "compound",
+    "equipment": "barbell",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps"
+    ]
+  },
+  {
+    "id": "db-shoulder-press",
+    "name": "db shoulder press",
+    "sourceName": "Dumbbell Shoulder Press",
+    "pattern": "push",
+    "force": "push",
+    "mechanic": "compound",
+    "equipment": "dumbbell",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps"
+    ]
+  },
+  {
+    "id": "db-bench-press",
+    "name": "db bench press",
+    "sourceName": "Dumbbell Bench Press",
+    "pattern": "push",
+    "force": "push",
+    "mechanic": "compound",
+    "equipment": "dumbbell",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "triceps"
+    ]
+  },
+  {
+    "id": "push-ups",
+    "name": "push-ups",
+    "sourceName": "Pushups",
+    "pattern": "push",
+    "force": "push",
+    "mechanic": "compound",
+    "equipment": "body only",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "triceps"
+    ]
+  },
+  {
+    "id": "walking-lunge",
+    "name": "walking lunge",
+    "sourceName": "Barbell Walking Lunge",
+    "pattern": "lunge",
+    "force": "push",
+    "mechanic": "compound",
+    "equipment": "barbell",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings"
+    ]
+  },
+  {
+    "id": "db-lunge",
+    "name": "db lunge",
+    "sourceName": "Dumbbell Lunges",
+    "pattern": "lunge",
+    "force": "push",
+    "mechanic": "compound",
+    "equipment": "dumbbell",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings"
+    ]
+  },
+  {
+    "id": "leg-press",
+    "name": "leg press",
+    "sourceName": "Leg Press",
+    "pattern": "squat",
+    "force": "push",
+    "mechanic": "compound",
+    "equipment": "machine",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings"
+    ]
+  },
+  {
+    "id": "farmer-carry",
+    "name": "farmer carry",
+    "sourceName": "Farmer's Walk",
+    "pattern": "carry",
+    "force": null,
+    "mechanic": "compound",
+    "equipment": "other",
+    "primaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMuscles": [
+      "abdominals",
+      "glutes",
+      "hamstrings",
+      "lower back",
+      "quadriceps",
+      "traps"
+    ]
+  },
+  {
+    "id": "plank",
+    "name": "plank",
+    "sourceName": "Plank",
+    "pattern": "core",
+    "force": "static",
+    "mechanic": "isolation",
+    "equipment": "body only",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": []
+  },
+  {
+    "id": "hanging-leg-raise",
+    "name": "hanging leg raise",
+    "sourceName": "Hanging Leg Raise",
+    "pattern": "core",
+    "force": "pull",
+    "mechanic": "isolation",
+    "equipment": "body only",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": []
+  },
+  {
+    "id": "sit-up",
+    "name": "sit-up",
+    "sourceName": "Sit-Up",
+    "pattern": "core",
+    "force": "pull",
+    "mechanic": "isolation",
+    "equipment": "body only",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": []
+  },
+  {
+    "id": "barbell-curl",
+    "name": "barbell curl",
+    "sourceName": "Barbell Curl",
+    "pattern": "pull",
+    "force": "pull",
+    "mechanic": "isolation",
+    "equipment": "barbell",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ]
+  },
+  {
+    "id": "db-curl",
+    "name": "db curl",
+    "sourceName": "Dumbbell Bicep Curl",
+    "pattern": "pull",
+    "force": "pull",
+    "mechanic": "isolation",
+    "equipment": "dumbbell",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ]
+  },
+  {
+    "id": "triceps-pushdown",
+    "name": "triceps pushdown",
+    "sourceName": "Triceps Pushdown",
+    "pattern": "push",
+    "force": "push",
+    "mechanic": "isolation",
+    "equipment": "cable",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": []
+  },
+  {
+    "id": "lateral-raise",
+    "name": "lateral raise",
+    "sourceName": "Side Lateral Raise",
+    "pattern": "push",
+    "force": "push",
+    "mechanic": "isolation",
+    "equipment": "dumbbell",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": []
+  },
+  {
+    "id": "cable-fly",
+    "name": "cable fly",
+    "sourceName": "Cable Crossover",
+    "pattern": "push",
+    "force": "push",
+    "mechanic": "isolation",
+    "equipment": "cable",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ]
+  }
+]

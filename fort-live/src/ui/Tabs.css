@@ -1,0 +1,30 @@
+.tabs {
+  flex: 0 0 auto;
+  display: flex;
+  gap: var(--space-3);
+  padding: calc(var(--space-3) + var(--top-inset)) var(--space-4) 0;
+  background: var(--bg);
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 2px 0;
+  font: inherit;
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: var(--ink-faint);
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: color 200ms var(--ease);
+}
+
+.tab:hover {
+  color: var(--ink-dim);
+}
+
+.tab-on {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}

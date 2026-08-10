@@ -1,0 +1,123 @@
+/* Centred and narrow rather than full-width: a full-width hit area runs under
+   the assistant button in the corner, and the two would fight for the same
+   taps. */
+.handle {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  height: 26px;
+  /* Reserve room for the assistant button in the corner at every width, not
+     just the one this was eyeballed at — a fixed 170px still clipped it by
+     3px on the phone frame. */
+  width: min(170px, calc(100% - 150px));
+  margin: 0 auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.handle-bar {
+  width: 42px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--hairline);
+  transition: background 240ms var(--ease);
+}
+
+.handle:hover .handle-bar {
+  background: var(--ink-faint);
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 320ms var(--ease);
+}
+
+.scrim-on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 11;
+  max-height: 82%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--bg-raised);
+  border-top: 1px solid var(--hairline);
+  border-radius: 22px 22px 0 0;
+  padding: 0 var(--space-4) calc(var(--space-5) + env(safe-area-inset-bottom));
+  transform: translateY(100%);
+  pointer-events: none;
+  transition: transform 340ms var(--ease);
+}
+
+.sheet-open {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* A generous target so the sheet can be thrown down with a thumb. */
+.sheet-grip-area {
+  position: sticky;
+  top: 0;
+  padding: var(--space-3) 0 var(--space-4);
+  background: var(--bg-raised);
+  cursor: grab;
+  touch-action: none;
+}
+
+.sheet-grip {
+  width: 42px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--hairline);
+  margin: 0 auto;
+}
+
+.passage {
+  font-size: var(--step-2);
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+  text-wrap: pretty;
+}
+
+.passage-silent {
+  color: var(--ink-dim);
+  font-size: var(--step-1);
+  line-height: 1.5;
+}
+
+.patterns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.pattern {
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  padding: 3px 9px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+}
+
+.pattern-on {
+  color: var(--bg);
+  background: var(--ink);
+  border-color: var(--ink);
+}

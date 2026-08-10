@@ -1,0 +1,78 @@
+.scrub {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  width: 380px;
+  max-width: calc(100vw - 48px);
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: rgba(20, 20, 22, 0.92);
+  border: 1px solid var(--hairline);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 50;
+}
+
+.scrub-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.scrub-sessions {
+  flex-wrap: wrap;
+}
+
+.scrub-note {
+  font-size: var(--step--1);
+  line-height: 1.45;
+  color: var(--ink-faint);
+}
+
+.chip {
+  font: inherit;
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  color: var(--ink-dim);
+  background: none;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 4px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.chip:hover {
+  border-color: var(--ink-faint);
+  color: var(--ink);
+}
+
+.chip-on {
+  color: var(--bg);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.scrub input[type='range'] {
+  flex: 1 1 auto;
+  min-width: 60px;
+  accent-color: var(--accent);
+}
+
+.scrub-time {
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+/* On a phone the scrubber is chrome the product does not have. */
+@media (max-width: 620px) {
+  .scrub {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    width: auto;
+  }
+}

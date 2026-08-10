@@ -1,0 +1,37 @@
+.panel {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4) 0;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.panel-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.panel-exercise {
+  font-size: var(--step-1);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.panel-status {
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+.panel-lower {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-bottom: var(--space-2);
+}

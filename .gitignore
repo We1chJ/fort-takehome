@@ -1,0 +1,17 @@
+# Dependencies and build output
+node_modules/
+dist/
+*.tsbuildinfo
+
+# The MM-Fit dataset. 3.5 GB across 302 files, MIT-licensed and publicly
+# downloadable from mmfit.github.io — it is an input to this work, not part of
+# it, and GitHub is the wrong place to mirror it.
+mm-fit/
+
+# Python
+__pycache__/
+*.pyc
+
+# Local tool state
+.claude/settings.local.json
+.DS_Store

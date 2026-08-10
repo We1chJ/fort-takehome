@@ -1,0 +1,111 @@
+/* Aesthetic target from fort-research.md §7.10: premium apparel / boutique wellness.
+   Restrained type, generous spacing, few colours, no gradients-as-excitement,
+   no rings on the training panel, no confetti. Dark because gyms are dim and the panel is
+   glanceable. */
+
+:root {
+  --bg: #0b0b0c;
+  --bg-raised: #141416;
+  --hairline: #232326;
+
+  --ink: #e8e3db;
+  --ink-dim: #8d8880;
+  --ink-faint: #55524d;
+
+  /* One accent. Warmth scales with stimulus; nothing on the training panel or
+     the report is red/amber/green. */
+  --accent: #d67a4a;
+  --accent-soft: #7a4a30;
+
+  /* The single exception, and only on the care ring.
+     Two bare numbers on one row — "mother · 74" and "67" — read as two ages, so
+     the score needs a shape and a hue the age does not have. It is not a
+     traffic light: the low step is clay rather than alarm red, because a
+     12%-slower chair rise has not earned a siren. The arc length carries the
+     same information as the hue, so nothing here depends on colour alone.
+     Checked with the dataviz validator against #141416 — every pair clears
+     ΔE 8.7 under deutan/protan/tritan simulation and 18.8 at normal vision. */
+  --state-steady: #3fa87e;
+  --state-watch: #d9a441;
+  --state-moved: #c2593f;
+
+  --muscle-rest: #26262a;
+
+  --step--1: 0.6875rem;
+  --step-0: 0.8125rem;
+  --step-1: 1rem;
+  --step-2: 1.5rem;
+  --step-3: 2.25rem;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 14px;
+  --space-4: 22px;
+  --space-5: 34px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --font: ui-sans-serif, -apple-system, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif;
+  --font-num: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+
+  /* Clearance for the status bar / notch. Real inset on a device; the phone
+     mock overrides it, because a drawn notch has no env() behind it and the
+     third tab ended up underneath it. */
+  --top-inset: env(safe-area-inset-top, 0px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: #08080a;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--step-0);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+/* Type helpers used across the panel. Lowercase, wide-tracked labels are the
+   whole typographic idea — they read as quiet annotation, not as UI chrome. */
+.label {
+  font-size: var(--step--1);
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: var(--ink-faint);
+}
+
+.num {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* The two views share one column; only one is mounted at a time. */
+.app {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* The view between the tab row and the assistant takes the remaining height. */
+.app > .panel,
+.app > .report,
+.app > .care {
+  flex: 1 1 auto;
+  min-height: 0;
+}

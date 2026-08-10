@@ -1,0 +1,53 @@
+.bare {
+  height: 100%;
+  width: 100%;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.stage {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 40px 20px;
+  background:
+    radial-gradient(120% 90% at 50% 0%, #131317 0%, #08080a 70%);
+}
+
+.bezel {
+  position: relative;
+  /* iPhone 15 Pro logical resolution, shrunk to fit short laptop viewports
+     rather than clipped. Aspect ratio is held so the layout a reviewer sees on
+     a desktop is the layout a phone gets. */
+  height: min(852px, calc(100vh - 80px));
+  aspect-ratio: 393 / 852;
+  border-radius: 54px;
+  padding: 11px;
+  background: #17171a;
+  box-shadow:
+    0 0 0 1.5px #2c2c31,
+    0 40px 90px -20px rgba(0, 0, 0, 0.8);
+}
+
+.notch {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 108px;
+  height: 30px;
+  border-radius: 16px;
+  background: #000;
+  z-index: 5;
+}
+
+.screen {
+  /* The drawn notch occupies the first ~41px of the mock screen. */
+  --top-inset: 34px;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 44px;
+  overflow: hidden;
+  background: var(--bg);
+}

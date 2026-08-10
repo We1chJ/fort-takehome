@@ -1,0 +1,33 @@
+.ribbon {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  height: 20px;
+  flex: 0 0 auto;
+}
+
+.ribbon-empty {
+  opacity: 0;
+}
+
+.ribbon-group {
+  display: flex;
+  align-items: flex-end;
+}
+
+.ribbon-marks {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.mark {
+  width: 3px;
+  border-radius: 1.5px;
+  background: var(--ink-faint);
+  transition: height 500ms var(--ease);
+}
+
+.mark-open {
+  background: var(--accent);
+}

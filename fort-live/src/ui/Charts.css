@@ -1,0 +1,253 @@
+/* Ranked horizontal bars ---------------------------------------------- */
+
+.ranked {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ranked-row {
+  display: grid;
+  grid-template-columns: var(--label-w, 74px) 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.ranked-label {
+  font-size: var(--step--1);
+  color: var(--ink-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ranked-track {
+  height: 9px;
+  background: var(--muscle-rest);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+/* Every bar is the same hue. Shading by magnitude would double-encode the
+   length these categories have no natural order to justify. */
+.ranked-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 600ms var(--ease);
+}
+
+/* A pattern with no time at all still gets a row — that absence is the whole
+   point of the chart, and it is what a pie would silently drop. */
+.ranked-fill-zero {
+  background: transparent;
+}
+
+.ranked-value {
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  min-width: 46px;
+  text-align: right;
+}
+
+/* Shared chart chrome -------------------------------------------------- */
+
+.chart {
+  margin: 0;
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.chart-legend {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.chart-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+}
+
+.chart-swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.chart-swatch-accent {
+  background: var(--accent);
+}
+
+.chart-swatch-line {
+  height: 2px;
+  border-radius: 1px;
+  background: var(--ink-dim);
+}
+
+/* Hairline, solid, one shade off the surface. Never dashed. */
+.chart-axis {
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+
+.chart-col {
+  fill: var(--accent);
+}
+
+.chart-trend {
+  fill: none;
+  stroke: var(--ink-dim);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.axis-tick {
+  fill: var(--ink-faint);
+  font-size: 8px;
+  font-family: var(--font-num);
+}
+
+/* Weekly columns ------------------------------------------------------- */
+
+.weekly {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  height: 118px;
+}
+
+.weekly-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+}
+
+.weekly-track {
+  flex: 1 1 auto;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.weekly-fill {
+  width: 100%;
+  background: var(--accent);
+  border-radius: 3px 3px 0 0;
+  transition: height 600ms var(--ease);
+}
+
+.weekly-value {
+  font-size: var(--step--1);
+  color: var(--ink-dim);
+}
+
+.weekly-tick {
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+/* Stat tiles ----------------------------------------------------------- */
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.tile-value {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.tile-value .num {
+  font-size: var(--step-2);
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.tile-unit {
+  font-size: var(--step--1);
+  color: var(--ink-dim);
+}
+
+.tile-caption {
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+}
+
+/* When a ranked list owns a whole view, centre it with comfortable spacing.
+   Stretching seven rows across 690px with space-between pulled them so far
+   apart they stopped reading as one chart. */
+.ranked-fill-height {
+  height: 100%;
+  justify-content: center;
+  gap: clamp(8px, 2.2vh, 18px);
+}
+
+.ranked-fill-height .ranked-track {
+  height: 11px;
+}
+
+/* A chart that owns a whole view has to grow through the flex chain: the
+   figure needs a real height before a percentage height inside it resolves to
+   anything, or the bars silently collapse to nothing. */
+.rpanel-body > .chart {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.rpanel-body .weekly {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+  max-height: 210px;
+}
+
+.rpanel-body .chart-svg {
+  flex: 0 0 auto;
+}
+
+/* Sparkline ------------------------------------------------------------ */
+
+.spark {
+  width: 96px;
+  height: 26px;
+  overflow: visible;
+  flex: 0 0 auto;
+}
+
+.spark-past,
+.spark-recent {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.spark-past {
+  stroke: var(--ink-faint);
+  stroke-width: 1.5;
+}
+
+/* The window the reading actually compares. */
+.spark-recent {
+  stroke: var(--accent);
+  stroke-width: 2;
+}

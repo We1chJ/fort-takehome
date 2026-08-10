@@ -1,0 +1,296 @@
+.care {
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4) calc(var(--space-5) + 46px + env(safe-area-inset-bottom));
+  background: var(--bg);
+}
+
+.care-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.care-head h1 {
+  font-size: var(--step-1);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.care-sub {
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+.care-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* A member ------------------------------------------------------------- */
+
+.member {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  background: var(--bg-raised);
+}
+
+/* A change is marked with a rule, not a colour. Nothing on this page goes
+   red — a family member glancing at their mother's card should not be met
+   with an alarm state for a measurement nobody has explained yet. */
+.member-changed {
+  border-left: 2px solid var(--accent);
+}
+
+.member-paused {
+  opacity: 0.62;
+}
+
+.member-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.member-head:disabled {
+  cursor: default;
+}
+
+.member-id {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.member-name {
+  font-size: var(--step-1);
+  color: var(--ink);
+}
+
+.member-rel {
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+/* The dial on the right end of a row. Arc length and hue say the same thing
+   twice, so neither is load-bearing alone. */
+.ring {
+  position: relative;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+}
+
+.ring svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ring-track {
+  fill: none;
+  stroke: var(--hairline);
+  stroke-width: 4;
+}
+
+.ring-arc {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  /* Start the sweep at twelve o'clock rather than three. */
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: stroke-dasharray 700ms var(--ease);
+}
+
+.ring-steady .ring-arc {
+  stroke: var(--state-steady);
+}
+
+.ring-watch .ring-arc {
+  stroke: var(--state-watch);
+}
+
+.ring-moved .ring-arc {
+  stroke: var(--state-moved);
+}
+
+.ring-num {
+  font-size: var(--step-1);
+  line-height: 1;
+  color: var(--ink);
+}
+
+.ring-none .ring-num {
+  color: var(--ink-faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-arc {
+    transition: none;
+  }
+}
+
+.member-paused-tag {
+  flex: 0 0 auto;
+  font-size: var(--step--1);
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+/* Everything below the row, revealed on tap. */
+.member-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--hairline);
+}
+
+.member-flag {
+  font-size: var(--step--1);
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+/* Signals -------------------------------------------------------------- */
+
+.member-signals {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.signal {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.signal-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.signal-label {
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
+.signal-value {
+  font-size: var(--step-0);
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.signal-delta {
+  font-size: var(--step--1);
+  color: var(--ink-dim);
+}
+
+/* Sharing footer ------------------------------------------------------- */
+
+.member-sharing {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
+/* Invite ---------------------------------------------------------------- */
+
+.invite {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px dashed var(--hairline);
+  border-radius: 14px;
+}
+
+.invite-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: var(--step-0);
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  text-align: left;
+  cursor: pointer;
+}
+
+.invite-btn:hover {
+  color: var(--ink-dim);
+}
+
+.invite-plus {
+  font-size: var(--step-1);
+  line-height: 1;
+}
+
+.invite-note {
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--ink-faint);
+  text-wrap: pretty;
+}
+
+/* The one line that stays visible with everything collapsed. It sits at the
+   same height as the assistant button, so it has to end before the button
+   starts — 46px of button plus the gutter it floats in. Without this the
+   second line clears the circle only by where the text happens to wrap. */
+.care-foot {
+  font-size: var(--step--1);
+  line-height: 1.5;
+  color: var(--ink-faint);
+  text-wrap: pretty;
+  padding-right: calc(46px + var(--space-3));
+}
