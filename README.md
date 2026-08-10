@@ -9,6 +9,13 @@
 
 ---
 
+## Limitations & Next Steps
+
+Here are things I would do if I have more time:
+1. dive deeper into the datasetes and see if there are other ones that match closer to what Fort's wearble will sense. Or combines or collects my own data to verfiy. The current model is just a prototype with small data size and standard 10-rep counts.
+2. Test data collection from the wearable or a prototype. From my past experience with IMU sensors, there are can be a lot of noises and issues with driftings. Confirm the data obtained is clean and representative enough before training any models.
+3. Validate the accuracy of relevant metrics such as calories burnt, reps done, and exercises through well controlled testings and experiments, ideally lower the error range down to < 5% from true value.
+
 ## Setup
 
 Two halves that run independently. **The dashboard needs only Node** — the model's output
@@ -298,17 +305,3 @@ band.** The differentiated angle is fitting this inside an MCU budget; see
 `datasets-and-training.md` §1.
 
 ---
-
-## What is not claimed
-
-- **Set segmentation** — assumed given, not solved. The harder half of the problem.
-- **Rep counting** — implemented, unvalidatable on this dataset.
-- **Rep timing** — no ground truth exists in MM-Fit.
-- **Velocity and ROM** — derived from wrist motion, not measured at the bar, and normalised
-  per session rather than against a calibrated range.
-- **Reps-in-reserve** — modelled from velocity loss, never measured.
-- **Per-subject generalization** — unmeasured, no subject IDs available.
-- **Body mass** — MM-Fit does not publish it; the energy estimate assumes 78 kg.
-- **The care tab's data** — the only synthetic data left in the repo. No public dataset
-  covers an elderly relative's shared health trends, and inventing one is clearly labelled
-  as such in `fort-live/src/data/careCircle.ts`.
