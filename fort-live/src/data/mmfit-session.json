@@ -1,0 +1,4397 @@
+{
+ "id": "mmfit-w14",
+ "label": "MM-Fit w14 (real)",
+ "note": "MM-Fit workout w14, replayed through the Q1 classifier instead of the generator. Exercise labels are predictions from a model that never saw this workout \u2014 27/27 correct. Reps are detected, not counted: 2.6 mean error, and 8 of 27 sets land an octave out (every true set here is 10 reps). Set timing and heart rate are measured.",
+ "bodyMassKg": 78,
+ "source": {
+  "dataset": "MM-Fit (MIT), left-wrist smartwatch IMU @ ~100 Hz + HR @ 1 Hz",
+  "workout": "w14",
+  "heldOut": true,
+  "setsEmitted": 27,
+  "exerciseAccuracy": 1.0,
+  "repMAE": 2.56,
+  "repOctaveErrors": 8,
+  "hrEvents": 262,
+  "measured": [
+   "set boundaries",
+   "set timing",
+   "heart rate"
+  ],
+  "detected": [
+   "rep count and rep timing (MAE 2.56, 8 octave errors)"
+  ],
+  "derived": [
+   "romFrac (wrist angular path, per-exercise normalised)",
+   "concentricVelocity (wrist speed, integrated accel)"
+  ],
+  "invented": [
+   "bodyMassKg"
+  ]
+ },
+ "events": [
+  {
+   "type": "hr",
+   "t": 17.63,
+   "bpm": 83.1
+  },
+  {
+   "type": "hr",
+   "t": 23.43,
+   "bpm": 89.1
+  },
+  {
+   "type": "set_start",
+   "t": 25.0,
+   "exerciseId": "back-squat",
+   "setIdx": 0
+  },
+  {
+   "type": "rep",
+   "t": 26.2,
+   "exerciseId": "back-squat",
+   "setIdx": 0,
+   "repIdx": 0,
+   "concentricVelocity": 0.964,
+   "romFrac": 0.458,
+   "durationS": 1.2
+  },
+  {
+   "type": "rep",
+   "t": 27.74,
+   "exerciseId": "back-squat",
+   "setIdx": 0,
+   "repIdx": 1,
+   "concentricVelocity": 0.979,
+   "romFrac": 0.629,
+   "durationS": 1.54
+  },
+  {
+   "type": "hr",
+   "t": 29.23,
+   "bpm": 91.0
+  },
+  {
+   "type": "rep",
+   "t": 29.35,
+   "exerciseId": "back-squat",
+   "setIdx": 0,
+   "repIdx": 2,
+   "concentricVelocity": 0.878,
+   "romFrac": 0.627,
+   "durationS": 1.61
+  },
+  {
+   "type": "rep",
+   "t": 31.08,
+   "exerciseId": "back-squat",
+   "setIdx": 0,
+   "repIdx": 3,
+   "concentricVelocity": 0.924,
+   "romFrac": 0.722,
+   "durationS": 1.73
+  },
+  {
+   "type": "rep",
+   "t": 32.85,
+   "exerciseId": "back-squat",
+   "setIdx": 0,
+   "repIdx": 4,
+   "concentricVelocity": 0.977,
+   "romFrac": 0.827,
+   "durationS": 1.77
+  },
+  {
+   "type": "rep",
+   "t": 34.62,
+   "exerciseId": "back-squat",
+   "setIdx": 0,
+   "repIdx": 5,
+   "concentricVelocity": 1.022,
+   "romFrac": 0.795,
+   "durationS": 1.78
+  },
+  {
+   "type": "hr",
+   "t": 35.03,
+   "bpm": 92.9
+  },
+  {
+   "type": "rep",
+   "t": 36.45,
+   "exerciseId": "back-squat",
+   "setIdx": 0,
+   "repIdx": 6,
+   "concentricVelocity": 0.803,
+   "romFrac": 0.623,
+   "durationS": 1.82
+  },
+  {
+   "type": "rep",
+   "t": 38.25,
+   "exerciseId": "back-squat",
+   "setIdx": 0,
+   "repIdx": 7,
+   "concentricVelocity": 0.923,
+   "romFrac": 0.659,
+   "durationS": 1.8
+  },
+  {
+   "type": "rep",
+   "t": 40.01,
+   "exerciseId": "back-squat",
+   "setIdx": 0,
+   "repIdx": 8,
+   "concentricVelocity": 0.994,
+   "romFrac": 0.715,
+   "durationS": 1.76
+  },
+  {
+   "type": "hr",
+   "t": 40.83,
+   "bpm": 96.3
+  },
+  {
+   "type": "rep",
+   "t": 42.0,
+   "exerciseId": "back-squat",
+   "setIdx": 0,
+   "repIdx": 9,
+   "concentricVelocity": 1.966,
+   "romFrac": 1.0,
+   "durationS": 1.99
+  },
+  {
+   "type": "set_end",
+   "t": 42.0,
+   "exerciseId": "back-squat",
+   "setIdx": 0
+  },
+  {
+   "type": "hr",
+   "t": 46.67,
+   "bpm": 101.0
+  },
+  {
+   "type": "hr",
+   "t": 52.47,
+   "bpm": 104.3
+  },
+  {
+   "type": "hr",
+   "t": 58.27,
+   "bpm": 107.9
+  },
+  {
+   "type": "hr",
+   "t": 64.07,
+   "bpm": 111.5
+  },
+  {
+   "type": "set_start",
+   "t": 68.73,
+   "exerciseId": "back-squat",
+   "setIdx": 1
+  },
+  {
+   "type": "hr",
+   "t": 69.87,
+   "bpm": 112.8
+  },
+  {
+   "type": "rep",
+   "t": 69.9,
+   "exerciseId": "back-squat",
+   "setIdx": 1,
+   "repIdx": 0,
+   "concentricVelocity": 1.092,
+   "romFrac": 0.474,
+   "durationS": 1.16
+  },
+  {
+   "type": "rep",
+   "t": 71.65,
+   "exerciseId": "back-squat",
+   "setIdx": 1,
+   "repIdx": 1,
+   "concentricVelocity": 0.852,
+   "romFrac": 0.658,
+   "durationS": 1.75
+  },
+  {
+   "type": "rep",
+   "t": 73.39,
+   "exerciseId": "back-squat",
+   "setIdx": 1,
+   "repIdx": 2,
+   "concentricVelocity": 0.896,
+   "romFrac": 0.669,
+   "durationS": 1.74
+  },
+  {
+   "type": "rep",
+   "t": 75.15,
+   "exerciseId": "back-squat",
+   "setIdx": 1,
+   "repIdx": 3,
+   "concentricVelocity": 0.845,
+   "romFrac": 0.584,
+   "durationS": 1.76
+  },
+  {
+   "type": "hr",
+   "t": 75.67,
+   "bpm": 115.0
+  },
+  {
+   "type": "rep",
+   "t": 76.92,
+   "exerciseId": "back-squat",
+   "setIdx": 1,
+   "repIdx": 4,
+   "concentricVelocity": 0.922,
+   "romFrac": 0.665,
+   "durationS": 1.76
+  },
+  {
+   "type": "rep",
+   "t": 78.61,
+   "exerciseId": "back-squat",
+   "setIdx": 1,
+   "repIdx": 5,
+   "concentricVelocity": 0.886,
+   "romFrac": 0.703,
+   "durationS": 1.7
+  },
+  {
+   "type": "rep",
+   "t": 80.34,
+   "exerciseId": "back-squat",
+   "setIdx": 1,
+   "repIdx": 6,
+   "concentricVelocity": 0.918,
+   "romFrac": 0.689,
+   "durationS": 1.73
+  },
+  {
+   "type": "hr",
+   "t": 81.47,
+   "bpm": 117.3
+  },
+  {
+   "type": "rep",
+   "t": 82.1,
+   "exerciseId": "back-squat",
+   "setIdx": 1,
+   "repIdx": 7,
+   "concentricVelocity": 1.004,
+   "romFrac": 0.754,
+   "durationS": 1.76
+  },
+  {
+   "type": "rep",
+   "t": 83.84,
+   "exerciseId": "back-squat",
+   "setIdx": 1,
+   "repIdx": 8,
+   "concentricVelocity": 0.941,
+   "romFrac": 0.63,
+   "durationS": 1.74
+  },
+  {
+   "type": "rep",
+   "t": 85.83,
+   "exerciseId": "back-squat",
+   "setIdx": 1,
+   "repIdx": 9,
+   "concentricVelocity": 1.122,
+   "romFrac": 1.0,
+   "durationS": 2.0
+  },
+  {
+   "type": "set_end",
+   "t": 85.83,
+   "exerciseId": "back-squat",
+   "setIdx": 1
+  },
+  {
+   "type": "hr",
+   "t": 87.27,
+   "bpm": 108.6
+  },
+  {
+   "type": "hr",
+   "t": 93.07,
+   "bpm": 112.9
+  },
+  {
+   "type": "hr",
+   "t": 98.87,
+   "bpm": 114.0
+  },
+  {
+   "type": "hr",
+   "t": 104.7,
+   "bpm": 115.2
+  },
+  {
+   "type": "hr",
+   "t": 110.47,
+   "bpm": 113.0
+  },
+  {
+   "type": "hr",
+   "t": 116.27,
+   "bpm": 112.0
+  },
+  {
+   "type": "hr",
+   "t": 122.1,
+   "bpm": 108.1
+  },
+  {
+   "type": "set_start",
+   "t": 126.13,
+   "exerciseId": "back-squat",
+   "setIdx": 2
+  },
+  {
+   "type": "rep",
+   "t": 127.14,
+   "exerciseId": "back-squat",
+   "setIdx": 2,
+   "repIdx": 0,
+   "concentricVelocity": 1.128,
+   "romFrac": 0.418,
+   "durationS": 1.01
+  },
+  {
+   "type": "hr",
+   "t": 127.87,
+   "bpm": 104.5
+  },
+  {
+   "type": "rep",
+   "t": 128.7,
+   "exerciseId": "back-squat",
+   "setIdx": 2,
+   "repIdx": 1,
+   "concentricVelocity": 0.874,
+   "romFrac": 0.577,
+   "durationS": 1.56
+  },
+  {
+   "type": "rep",
+   "t": 130.34,
+   "exerciseId": "back-squat",
+   "setIdx": 2,
+   "repIdx": 2,
+   "concentricVelocity": 0.84,
+   "romFrac": 0.515,
+   "durationS": 1.63
+  },
+  {
+   "type": "rep",
+   "t": 132.02,
+   "exerciseId": "back-squat",
+   "setIdx": 2,
+   "repIdx": 3,
+   "concentricVelocity": 0.942,
+   "romFrac": 0.703,
+   "durationS": 1.68
+  },
+  {
+   "type": "hr",
+   "t": 133.67,
+   "bpm": 104.6
+  },
+  {
+   "type": "rep",
+   "t": 133.7,
+   "exerciseId": "back-squat",
+   "setIdx": 2,
+   "repIdx": 4,
+   "concentricVelocity": 0.938,
+   "romFrac": 0.681,
+   "durationS": 1.68
+  },
+  {
+   "type": "rep",
+   "t": 135.44,
+   "exerciseId": "back-squat",
+   "setIdx": 2,
+   "repIdx": 5,
+   "concentricVelocity": 0.881,
+   "romFrac": 0.643,
+   "durationS": 1.74
+  },
+  {
+   "type": "rep",
+   "t": 137.25,
+   "exerciseId": "back-squat",
+   "setIdx": 2,
+   "repIdx": 6,
+   "concentricVelocity": 0.865,
+   "romFrac": 0.629,
+   "durationS": 1.81
+  },
+  {
+   "type": "rep",
+   "t": 139.07,
+   "exerciseId": "back-squat",
+   "setIdx": 2,
+   "repIdx": 7,
+   "concentricVelocity": 0.947,
+   "romFrac": 0.703,
+   "durationS": 1.82
+  },
+  {
+   "type": "hr",
+   "t": 139.43,
+   "bpm": 106.7
+  },
+  {
+   "type": "rep",
+   "t": 140.93,
+   "exerciseId": "back-squat",
+   "setIdx": 2,
+   "repIdx": 8,
+   "concentricVelocity": 0.843,
+   "romFrac": 0.751,
+   "durationS": 1.86
+  },
+  {
+   "type": "rep",
+   "t": 143.03,
+   "exerciseId": "back-squat",
+   "setIdx": 2,
+   "repIdx": 9,
+   "concentricVelocity": 1.22,
+   "romFrac": 0.979,
+   "durationS": 2.1
+  },
+  {
+   "type": "set_end",
+   "t": 143.03,
+   "exerciseId": "back-squat",
+   "setIdx": 2
+  },
+  {
+   "type": "hr",
+   "t": 145.23,
+   "bpm": 106.6
+  },
+  {
+   "type": "hr",
+   "t": 151.03,
+   "bpm": 104.3
+  },
+  {
+   "type": "hr",
+   "t": 156.77,
+   "bpm": 105.6
+  },
+  {
+   "type": "set_start",
+   "t": 157.2,
+   "exerciseId": "push-ups",
+   "setIdx": 3
+  },
+  {
+   "type": "rep",
+   "t": 158.92,
+   "exerciseId": "push-ups",
+   "setIdx": 3,
+   "repIdx": 0,
+   "concentricVelocity": 0.683,
+   "romFrac": 0.741,
+   "durationS": 1.72
+  },
+  {
+   "type": "rep",
+   "t": 160.92,
+   "exerciseId": "push-ups",
+   "setIdx": 3,
+   "repIdx": 1,
+   "concentricVelocity": 0.58,
+   "romFrac": 0.788,
+   "durationS": 2.0
+  },
+  {
+   "type": "hr",
+   "t": 162.57,
+   "bpm": 106.9
+  },
+  {
+   "type": "rep",
+   "t": 162.95,
+   "exerciseId": "push-ups",
+   "setIdx": 3,
+   "repIdx": 2,
+   "concentricVelocity": 0.614,
+   "romFrac": 0.811,
+   "durationS": 2.03
+  },
+  {
+   "type": "rep",
+   "t": 164.59,
+   "exerciseId": "push-ups",
+   "setIdx": 3,
+   "repIdx": 3,
+   "concentricVelocity": 0.809,
+   "romFrac": 0.697,
+   "durationS": 1.64
+  },
+  {
+   "type": "rep",
+   "t": 166.26,
+   "exerciseId": "push-ups",
+   "setIdx": 3,
+   "repIdx": 4,
+   "concentricVelocity": 0.791,
+   "romFrac": 0.788,
+   "durationS": 1.68
+  },
+  {
+   "type": "rep",
+   "t": 167.97,
+   "exerciseId": "push-ups",
+   "setIdx": 3,
+   "repIdx": 5,
+   "concentricVelocity": 0.876,
+   "romFrac": 0.762,
+   "durationS": 1.7
+  },
+  {
+   "type": "hr",
+   "t": 168.37,
+   "bpm": 108.1
+  },
+  {
+   "type": "rep",
+   "t": 169.63,
+   "exerciseId": "push-ups",
+   "setIdx": 3,
+   "repIdx": 6,
+   "concentricVelocity": 0.868,
+   "romFrac": 0.751,
+   "durationS": 1.67
+  },
+  {
+   "type": "rep",
+   "t": 171.25,
+   "exerciseId": "push-ups",
+   "setIdx": 3,
+   "repIdx": 7,
+   "concentricVelocity": 0.807,
+   "romFrac": 0.724,
+   "durationS": 1.62
+  },
+  {
+   "type": "rep",
+   "t": 173.6,
+   "exerciseId": "push-ups",
+   "setIdx": 3,
+   "repIdx": 8,
+   "concentricVelocity": 0.603,
+   "romFrac": 1.0,
+   "durationS": 2.35
+  },
+  {
+   "type": "set_end",
+   "t": 173.6,
+   "exerciseId": "push-ups",
+   "setIdx": 3
+  },
+  {
+   "type": "hr",
+   "t": 174.17,
+   "bpm": 106.9
+  },
+  {
+   "type": "hr",
+   "t": 179.93,
+   "bpm": 106.9
+  },
+  {
+   "type": "hr",
+   "t": 185.53,
+   "bpm": 109.0
+  },
+  {
+   "type": "set_start",
+   "t": 190.27,
+   "exerciseId": "push-ups",
+   "setIdx": 4
+  },
+  {
+   "type": "hr",
+   "t": 191.37,
+   "bpm": 111.7
+  },
+  {
+   "type": "rep",
+   "t": 192.66,
+   "exerciseId": "push-ups",
+   "setIdx": 4,
+   "repIdx": 0,
+   "concentricVelocity": 0.48,
+   "romFrac": 0.913,
+   "durationS": 2.39
+  },
+  {
+   "type": "rep",
+   "t": 194.08,
+   "exerciseId": "push-ups",
+   "setIdx": 4,
+   "repIdx": 1,
+   "concentricVelocity": 0.592,
+   "romFrac": 0.693,
+   "durationS": 1.42
+  },
+  {
+   "type": "rep",
+   "t": 195.49,
+   "exerciseId": "push-ups",
+   "setIdx": 4,
+   "repIdx": 2,
+   "concentricVelocity": 0.639,
+   "romFrac": 0.695,
+   "durationS": 1.41
+  },
+  {
+   "type": "rep",
+   "t": 196.88,
+   "exerciseId": "push-ups",
+   "setIdx": 4,
+   "repIdx": 3,
+   "concentricVelocity": 0.645,
+   "romFrac": 0.596,
+   "durationS": 1.39
+  },
+  {
+   "type": "hr",
+   "t": 197.17,
+   "bpm": 117.6
+  },
+  {
+   "type": "rep",
+   "t": 198.27,
+   "exerciseId": "push-ups",
+   "setIdx": 4,
+   "repIdx": 4,
+   "concentricVelocity": 0.578,
+   "romFrac": 0.699,
+   "durationS": 1.39
+  },
+  {
+   "type": "rep",
+   "t": 199.66,
+   "exerciseId": "push-ups",
+   "setIdx": 4,
+   "repIdx": 5,
+   "concentricVelocity": 0.605,
+   "romFrac": 0.629,
+   "durationS": 1.39
+  },
+  {
+   "type": "rep",
+   "t": 201.02,
+   "exerciseId": "push-ups",
+   "setIdx": 4,
+   "repIdx": 6,
+   "concentricVelocity": 0.619,
+   "romFrac": 0.695,
+   "durationS": 1.36
+  },
+  {
+   "type": "rep",
+   "t": 202.38,
+   "exerciseId": "push-ups",
+   "setIdx": 4,
+   "repIdx": 7,
+   "concentricVelocity": 0.567,
+   "romFrac": 0.679,
+   "durationS": 1.36
+  },
+  {
+   "type": "hr",
+   "t": 202.93,
+   "bpm": 121.1
+  },
+  {
+   "type": "rep",
+   "t": 204.43,
+   "exerciseId": "push-ups",
+   "setIdx": 4,
+   "repIdx": 8,
+   "concentricVelocity": 0.585,
+   "romFrac": 0.863,
+   "durationS": 2.05
+  },
+  {
+   "type": "set_end",
+   "t": 204.43,
+   "exerciseId": "push-ups",
+   "setIdx": 4
+  },
+  {
+   "type": "hr",
+   "t": 208.77,
+   "bpm": 120.1
+  },
+  {
+   "type": "hr",
+   "t": 214.57,
+   "bpm": 120.3
+  },
+  {
+   "type": "hr",
+   "t": 220.33,
+   "bpm": 120.9
+  },
+  {
+   "type": "hr",
+   "t": 226.13,
+   "bpm": 124.1
+  },
+  {
+   "type": "hr",
+   "t": 231.83,
+   "bpm": 124.1
+  },
+  {
+   "type": "set_start",
+   "t": 236.13,
+   "exerciseId": "push-ups",
+   "setIdx": 5
+  },
+  {
+   "type": "hr",
+   "t": 237.57,
+   "bpm": 124.8
+  },
+  {
+   "type": "rep",
+   "t": 238.3,
+   "exerciseId": "push-ups",
+   "setIdx": 5,
+   "repIdx": 0,
+   "concentricVelocity": 0.544,
+   "romFrac": 0.854,
+   "durationS": 2.17
+  },
+  {
+   "type": "rep",
+   "t": 239.72,
+   "exerciseId": "push-ups",
+   "setIdx": 5,
+   "repIdx": 1,
+   "concentricVelocity": 0.576,
+   "romFrac": 0.726,
+   "durationS": 1.42
+  },
+  {
+   "type": "rep",
+   "t": 241.15,
+   "exerciseId": "push-ups",
+   "setIdx": 5,
+   "repIdx": 2,
+   "concentricVelocity": 0.62,
+   "romFrac": 0.728,
+   "durationS": 1.43
+  },
+  {
+   "type": "rep",
+   "t": 242.61,
+   "exerciseId": "push-ups",
+   "setIdx": 5,
+   "repIdx": 3,
+   "concentricVelocity": 0.628,
+   "romFrac": 0.735,
+   "durationS": 1.46
+  },
+  {
+   "type": "hr",
+   "t": 243.37,
+   "bpm": 121.6
+  },
+  {
+   "type": "rep",
+   "t": 244.08,
+   "exerciseId": "push-ups",
+   "setIdx": 5,
+   "repIdx": 4,
+   "concentricVelocity": 0.669,
+   "romFrac": 0.735,
+   "durationS": 1.47
+  },
+  {
+   "type": "rep",
+   "t": 245.57,
+   "exerciseId": "push-ups",
+   "setIdx": 5,
+   "repIdx": 5,
+   "concentricVelocity": 0.635,
+   "romFrac": 0.722,
+   "durationS": 1.48
+  },
+  {
+   "type": "rep",
+   "t": 247.07,
+   "exerciseId": "push-ups",
+   "setIdx": 5,
+   "repIdx": 6,
+   "concentricVelocity": 0.649,
+   "romFrac": 0.699,
+   "durationS": 1.51
+  },
+  {
+   "type": "rep",
+   "t": 248.62,
+   "exerciseId": "push-ups",
+   "setIdx": 5,
+   "repIdx": 7,
+   "concentricVelocity": 0.726,
+   "romFrac": 0.804,
+   "durationS": 1.55
+  },
+  {
+   "type": "hr",
+   "t": 249.17,
+   "bpm": 120.2
+  },
+  {
+   "type": "rep",
+   "t": 251.1,
+   "exerciseId": "push-ups",
+   "setIdx": 5,
+   "repIdx": 8,
+   "concentricVelocity": 0.556,
+   "romFrac": 1.0,
+   "durationS": 2.48
+  },
+  {
+   "type": "set_end",
+   "t": 251.1,
+   "exerciseId": "push-ups",
+   "setIdx": 5
+  },
+  {
+   "type": "hr",
+   "t": 254.97,
+   "bpm": 119.9
+  },
+  {
+   "type": "hr",
+   "t": 260.73,
+   "bpm": 121.4
+  },
+  {
+   "type": "hr",
+   "t": 266.57,
+   "bpm": 121.4
+  },
+  {
+   "type": "hr",
+   "t": 272.3,
+   "bpm": 123.8
+  },
+  {
+   "type": "set_start",
+   "t": 273.17,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6
+  },
+  {
+   "type": "rep",
+   "t": 276.01,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6,
+   "repIdx": 0,
+   "concentricVelocity": 0.661,
+   "romFrac": 0.591,
+   "durationS": 2.84
+  },
+  {
+   "type": "hr",
+   "t": 277.87,
+   "bpm": 125.5
+  },
+  {
+   "type": "rep",
+   "t": 278.08,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6,
+   "repIdx": 1,
+   "concentricVelocity": 0.485,
+   "romFrac": 0.382,
+   "durationS": 2.07
+  },
+  {
+   "type": "rep",
+   "t": 280.3,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6,
+   "repIdx": 2,
+   "concentricVelocity": 0.421,
+   "romFrac": 0.421,
+   "durationS": 2.22
+  },
+  {
+   "type": "rep",
+   "t": 282.47,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6,
+   "repIdx": 3,
+   "concentricVelocity": 0.419,
+   "romFrac": 0.354,
+   "durationS": 2.16
+  },
+  {
+   "type": "hr",
+   "t": 283.27,
+   "bpm": 130.1
+  },
+  {
+   "type": "rep",
+   "t": 284.65,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6,
+   "repIdx": 4,
+   "concentricVelocity": 0.428,
+   "romFrac": 0.424,
+   "durationS": 2.18
+  },
+  {
+   "type": "rep",
+   "t": 286.84,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6,
+   "repIdx": 5,
+   "concentricVelocity": 0.435,
+   "romFrac": 0.394,
+   "durationS": 2.19
+  },
+  {
+   "type": "hr",
+   "t": 288.67,
+   "bpm": 130.4
+  },
+  {
+   "type": "rep",
+   "t": 289.04,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6,
+   "repIdx": 6,
+   "concentricVelocity": 0.406,
+   "romFrac": 0.418,
+   "durationS": 2.21
+  },
+  {
+   "type": "rep",
+   "t": 291.42,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6,
+   "repIdx": 7,
+   "concentricVelocity": 0.378,
+   "romFrac": 0.352,
+   "durationS": 2.38
+  },
+  {
+   "type": "rep",
+   "t": 293.64,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6,
+   "repIdx": 8,
+   "concentricVelocity": 0.465,
+   "romFrac": 0.361,
+   "durationS": 2.22
+  },
+  {
+   "type": "rep",
+   "t": 294.93,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6,
+   "repIdx": 9,
+   "concentricVelocity": 0.385,
+   "romFrac": 0.536,
+   "durationS": 1.3
+  },
+  {
+   "type": "set_end",
+   "t": 294.93,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 6
+  },
+  {
+   "type": "hr",
+   "t": 295.0,
+   "bpm": 132.2
+  },
+  {
+   "type": "hr",
+   "t": 300.8,
+   "bpm": 139.1
+  },
+  {
+   "type": "hr",
+   "t": 306.6,
+   "bpm": 140.7
+  },
+  {
+   "type": "hr",
+   "t": 312.37,
+   "bpm": 140.6
+  },
+  {
+   "type": "hr",
+   "t": 318.2,
+   "bpm": 141.3
+  },
+  {
+   "type": "hr",
+   "t": 323.93,
+   "bpm": 138.5
+  },
+  {
+   "type": "set_start",
+   "t": 324.2,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 7
+  },
+  {
+   "type": "hr",
+   "t": 329.53,
+   "bpm": 131.2
+  },
+  {
+   "type": "rep",
+   "t": 330.21,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 7,
+   "repIdx": 0,
+   "concentricVelocity": 1.203,
+   "romFrac": 1.0,
+   "durationS": 6.01
+  },
+  {
+   "type": "rep",
+   "t": 334.77,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 7,
+   "repIdx": 1,
+   "concentricVelocity": 0.878,
+   "romFrac": 0.748,
+   "durationS": 4.56
+  },
+  {
+   "type": "hr",
+   "t": 334.93,
+   "bpm": 126.5
+  },
+  {
+   "type": "rep",
+   "t": 339.5,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 7,
+   "repIdx": 2,
+   "concentricVelocity": 0.725,
+   "romFrac": 0.865,
+   "durationS": 4.73
+  },
+  {
+   "type": "hr",
+   "t": 340.4,
+   "bpm": 126.8
+  },
+  {
+   "type": "rep",
+   "t": 344.14,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 7,
+   "repIdx": 3,
+   "concentricVelocity": 0.654,
+   "romFrac": 0.927,
+   "durationS": 4.64
+  },
+  {
+   "type": "hr",
+   "t": 345.83,
+   "bpm": 126.6
+  },
+  {
+   "type": "rep",
+   "t": 346.7,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 7,
+   "repIdx": 4,
+   "concentricVelocity": 0.378,
+   "romFrac": 0.872,
+   "durationS": 2.56
+  },
+  {
+   "type": "set_end",
+   "t": 346.7,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 7
+  },
+  {
+   "type": "hr",
+   "t": 351.53,
+   "bpm": 126.3
+  },
+  {
+   "type": "hr",
+   "t": 357.3,
+   "bpm": 125.1
+  },
+  {
+   "type": "hr",
+   "t": 363.1,
+   "bpm": 124.9
+  },
+  {
+   "type": "hr",
+   "t": 368.87,
+   "bpm": 124.4
+  },
+  {
+   "type": "hr",
+   "t": 374.63,
+   "bpm": 124.0
+  },
+  {
+   "type": "hr",
+   "t": 380.43,
+   "bpm": 122.5
+  },
+  {
+   "type": "hr",
+   "t": 386.23,
+   "bpm": 118.6
+  },
+  {
+   "type": "hr",
+   "t": 392.03,
+   "bpm": 114.4
+  },
+  {
+   "type": "hr",
+   "t": 397.83,
+   "bpm": 106.6
+  },
+  {
+   "type": "hr",
+   "t": 403.6,
+   "bpm": 106.0
+  },
+  {
+   "type": "hr",
+   "t": 409.37,
+   "bpm": 99.5
+  },
+  {
+   "type": "hr",
+   "t": 415.13,
+   "bpm": 97.3
+  },
+  {
+   "type": "hr",
+   "t": 420.93,
+   "bpm": 96.0
+  },
+  {
+   "type": "hr",
+   "t": 427.63,
+   "bpm": 94.6
+  },
+  {
+   "type": "set_start",
+   "t": 430.4,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 8
+  },
+  {
+   "type": "hr",
+   "t": 433.13,
+   "bpm": 88.9
+  },
+  {
+   "type": "rep",
+   "t": 433.35,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 8,
+   "repIdx": 0,
+   "concentricVelocity": 0.684,
+   "romFrac": 0.596,
+   "durationS": 2.95
+  },
+  {
+   "type": "rep",
+   "t": 435.4,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 8,
+   "repIdx": 1,
+   "concentricVelocity": 0.487,
+   "romFrac": 0.405,
+   "durationS": 2.05
+  },
+  {
+   "type": "rep",
+   "t": 437.56,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 8,
+   "repIdx": 2,
+   "concentricVelocity": 0.507,
+   "romFrac": 0.414,
+   "durationS": 2.16
+  },
+  {
+   "type": "hr",
+   "t": 438.7,
+   "bpm": 87.5
+  },
+  {
+   "type": "rep",
+   "t": 439.89,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 8,
+   "repIdx": 3,
+   "concentricVelocity": 0.436,
+   "romFrac": 0.397,
+   "durationS": 2.33
+  },
+  {
+   "type": "rep",
+   "t": 442.27,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 8,
+   "repIdx": 4,
+   "concentricVelocity": 0.423,
+   "romFrac": 0.374,
+   "durationS": 2.38
+  },
+  {
+   "type": "hr",
+   "t": 444.23,
+   "bpm": 86.5
+  },
+  {
+   "type": "rep",
+   "t": 444.61,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 8,
+   "repIdx": 5,
+   "concentricVelocity": 0.627,
+   "romFrac": 0.495,
+   "durationS": 2.33
+  },
+  {
+   "type": "rep",
+   "t": 447.0,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 8,
+   "repIdx": 6,
+   "concentricVelocity": 0.419,
+   "romFrac": 0.472,
+   "durationS": 2.4
+  },
+  {
+   "type": "rep",
+   "t": 449.54,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 8,
+   "repIdx": 7,
+   "concentricVelocity": 0.45,
+   "romFrac": 0.463,
+   "durationS": 2.54
+  },
+  {
+   "type": "hr",
+   "t": 449.67,
+   "bpm": 85.2
+  },
+  {
+   "type": "rep",
+   "t": 452.97,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 8,
+   "repIdx": 8,
+   "concentricVelocity": 0.455,
+   "romFrac": 1.0,
+   "durationS": 3.42
+  },
+  {
+   "type": "set_end",
+   "t": 452.97,
+   "exerciseId": "db-shoulder-press",
+   "setIdx": 8
+  },
+  {
+   "type": "hr",
+   "t": 455.33,
+   "bpm": 84.6
+  },
+  {
+   "type": "hr",
+   "t": 461.1,
+   "bpm": 84.6
+  },
+  {
+   "type": "hr",
+   "t": 466.83,
+   "bpm": 84.7
+  },
+  {
+   "type": "hr",
+   "t": 472.67,
+   "bpm": 84.9
+  },
+  {
+   "type": "hr",
+   "t": 478.47,
+   "bpm": 84.8
+  },
+  {
+   "type": "hr",
+   "t": 484.27,
+   "bpm": 84.0
+  },
+  {
+   "type": "hr",
+   "t": 490.03,
+   "bpm": 82.9
+  },
+  {
+   "type": "hr",
+   "t": 495.8,
+   "bpm": 82.7
+  },
+  {
+   "type": "hr",
+   "t": 501.63,
+   "bpm": 82.7
+  },
+  {
+   "type": "hr",
+   "t": 507.4,
+   "bpm": 84.5
+  },
+  {
+   "type": "hr",
+   "t": 513.0,
+   "bpm": 85.3
+  },
+  {
+   "type": "hr",
+   "t": 518.77,
+   "bpm": 86.3
+  },
+  {
+   "type": "hr",
+   "t": 524.6,
+   "bpm": 90.6
+  },
+  {
+   "type": "set_start",
+   "t": 527.1,
+   "exerciseId": "barbell-row",
+   "setIdx": 9
+  },
+  {
+   "type": "rep",
+   "t": 529.77,
+   "exerciseId": "barbell-row",
+   "setIdx": 9,
+   "repIdx": 0,
+   "concentricVelocity": 1.081,
+   "romFrac": 0.75,
+   "durationS": 2.67
+  },
+  {
+   "type": "hr",
+   "t": 530.37,
+   "bpm": 93.1
+  },
+  {
+   "type": "rep",
+   "t": 531.64,
+   "exerciseId": "barbell-row",
+   "setIdx": 9,
+   "repIdx": 1,
+   "concentricVelocity": 0.985,
+   "romFrac": 0.66,
+   "durationS": 1.87
+  },
+  {
+   "type": "rep",
+   "t": 533.52,
+   "exerciseId": "barbell-row",
+   "setIdx": 9,
+   "repIdx": 2,
+   "concentricVelocity": 1.107,
+   "romFrac": 0.715,
+   "durationS": 1.88
+  },
+  {
+   "type": "rep",
+   "t": 535.37,
+   "exerciseId": "barbell-row",
+   "setIdx": 9,
+   "repIdx": 3,
+   "concentricVelocity": 1.036,
+   "romFrac": 0.701,
+   "durationS": 1.85
+  },
+  {
+   "type": "hr",
+   "t": 536.17,
+   "bpm": 97.9
+  },
+  {
+   "type": "rep",
+   "t": 537.29,
+   "exerciseId": "barbell-row",
+   "setIdx": 9,
+   "repIdx": 4,
+   "concentricVelocity": 1.023,
+   "romFrac": 0.748,
+   "durationS": 1.92
+  },
+  {
+   "type": "rep",
+   "t": 539.23,
+   "exerciseId": "barbell-row",
+   "setIdx": 9,
+   "repIdx": 5,
+   "concentricVelocity": 1.023,
+   "romFrac": 0.692,
+   "durationS": 1.93
+  },
+  {
+   "type": "rep",
+   "t": 541.09,
+   "exerciseId": "barbell-row",
+   "setIdx": 9,
+   "repIdx": 6,
+   "concentricVelocity": 1.039,
+   "romFrac": 0.674,
+   "durationS": 1.87
+  },
+  {
+   "type": "hr",
+   "t": 541.93,
+   "bpm": 98.9
+  },
+  {
+   "type": "rep",
+   "t": 543.02,
+   "exerciseId": "barbell-row",
+   "setIdx": 9,
+   "repIdx": 7,
+   "concentricVelocity": 1.093,
+   "romFrac": 0.692,
+   "durationS": 1.92
+  },
+  {
+   "type": "rep",
+   "t": 545.87,
+   "exerciseId": "barbell-row",
+   "setIdx": 9,
+   "repIdx": 8,
+   "concentricVelocity": 1.176,
+   "romFrac": 1.0,
+   "durationS": 2.85
+  },
+  {
+   "type": "set_end",
+   "t": 545.87,
+   "exerciseId": "barbell-row",
+   "setIdx": 9
+  },
+  {
+   "type": "hr",
+   "t": 547.73,
+   "bpm": 99.4
+  },
+  {
+   "type": "hr",
+   "t": 553.53,
+   "bpm": 101.1
+  },
+  {
+   "type": "hr",
+   "t": 559.27,
+   "bpm": 105.7
+  },
+  {
+   "type": "set_start",
+   "t": 564.8,
+   "exerciseId": "barbell-row",
+   "setIdx": 10
+  },
+  {
+   "type": "hr",
+   "t": 565.07,
+   "bpm": 105.9
+  },
+  {
+   "type": "rep",
+   "t": 567.26,
+   "exerciseId": "barbell-row",
+   "setIdx": 10,
+   "repIdx": 0,
+   "concentricVelocity": 0.989,
+   "romFrac": 0.729,
+   "durationS": 2.46
+  },
+  {
+   "type": "rep",
+   "t": 568.98,
+   "exerciseId": "barbell-row",
+   "setIdx": 10,
+   "repIdx": 1,
+   "concentricVelocity": 0.843,
+   "romFrac": 0.576,
+   "durationS": 1.71
+  },
+  {
+   "type": "rep",
+   "t": 570.72,
+   "exerciseId": "barbell-row",
+   "setIdx": 10,
+   "repIdx": 2,
+   "concentricVelocity": 0.883,
+   "romFrac": 0.603,
+   "durationS": 1.75
+  },
+  {
+   "type": "hr",
+   "t": 570.87,
+   "bpm": 106.2
+  },
+  {
+   "type": "rep",
+   "t": 572.59,
+   "exerciseId": "barbell-row",
+   "setIdx": 10,
+   "repIdx": 3,
+   "concentricVelocity": 0.858,
+   "romFrac": 0.653,
+   "durationS": 1.86
+  },
+  {
+   "type": "rep",
+   "t": 574.47,
+   "exerciseId": "barbell-row",
+   "setIdx": 10,
+   "repIdx": 4,
+   "concentricVelocity": 0.911,
+   "romFrac": 0.635,
+   "durationS": 1.88
+  },
+  {
+   "type": "rep",
+   "t": 576.36,
+   "exerciseId": "barbell-row",
+   "setIdx": 10,
+   "repIdx": 5,
+   "concentricVelocity": 0.883,
+   "romFrac": 0.589,
+   "durationS": 1.89
+  },
+  {
+   "type": "hr",
+   "t": 576.67,
+   "bpm": 105.8
+  },
+  {
+   "type": "rep",
+   "t": 578.24,
+   "exerciseId": "barbell-row",
+   "setIdx": 10,
+   "repIdx": 6,
+   "concentricVelocity": 1.048,
+   "romFrac": 0.667,
+   "durationS": 1.88
+  },
+  {
+   "type": "rep",
+   "t": 580.13,
+   "exerciseId": "barbell-row",
+   "setIdx": 10,
+   "repIdx": 7,
+   "concentricVelocity": 0.891,
+   "romFrac": 0.564,
+   "durationS": 1.89
+  },
+  {
+   "type": "hr",
+   "t": 582.47,
+   "bpm": 108.6
+  },
+  {
+   "type": "rep",
+   "t": 582.97,
+   "exerciseId": "barbell-row",
+   "setIdx": 10,
+   "repIdx": 8,
+   "concentricVelocity": 1.082,
+   "romFrac": 0.908,
+   "durationS": 2.83
+  },
+  {
+   "type": "set_end",
+   "t": 582.97,
+   "exerciseId": "barbell-row",
+   "setIdx": 10
+  },
+  {
+   "type": "hr",
+   "t": 588.2,
+   "bpm": 110.1
+  },
+  {
+   "type": "hr",
+   "t": 593.97,
+   "bpm": 110.1
+  },
+  {
+   "type": "hr",
+   "t": 599.77,
+   "bpm": 105.7
+  },
+  {
+   "type": "hr",
+   "t": 605.57,
+   "bpm": 111.8
+  },
+  {
+   "type": "hr",
+   "t": 611.3,
+   "bpm": 109.1
+  },
+  {
+   "type": "set_start",
+   "t": 615.57,
+   "exerciseId": "barbell-row",
+   "setIdx": 11
+  },
+  {
+   "type": "hr",
+   "t": 617.07,
+   "bpm": 108.4
+  },
+  {
+   "type": "rep",
+   "t": 618.23,
+   "exerciseId": "barbell-row",
+   "setIdx": 11,
+   "repIdx": 0,
+   "concentricVelocity": 0.913,
+   "romFrac": 0.747,
+   "durationS": 2.66
+  },
+  {
+   "type": "rep",
+   "t": 620.12,
+   "exerciseId": "barbell-row",
+   "setIdx": 11,
+   "repIdx": 1,
+   "concentricVelocity": 1.005,
+   "romFrac": 0.594,
+   "durationS": 1.89
+  },
+  {
+   "type": "rep",
+   "t": 622.0,
+   "exerciseId": "barbell-row",
+   "setIdx": 11,
+   "repIdx": 2,
+   "concentricVelocity": 0.968,
+   "romFrac": 0.668,
+   "durationS": 1.88
+  },
+  {
+   "type": "hr",
+   "t": 622.87,
+   "bpm": 106.7
+  },
+  {
+   "type": "rep",
+   "t": 623.87,
+   "exerciseId": "barbell-row",
+   "setIdx": 11,
+   "repIdx": 3,
+   "concentricVelocity": 1.011,
+   "romFrac": 0.7,
+   "durationS": 1.87
+  },
+  {
+   "type": "rep",
+   "t": 625.74,
+   "exerciseId": "barbell-row",
+   "setIdx": 11,
+   "repIdx": 4,
+   "concentricVelocity": 1.103,
+   "romFrac": 0.653,
+   "durationS": 1.87
+  },
+  {
+   "type": "rep",
+   "t": 627.65,
+   "exerciseId": "barbell-row",
+   "setIdx": 11,
+   "repIdx": 5,
+   "concentricVelocity": 1.083,
+   "romFrac": 0.639,
+   "durationS": 1.91
+  },
+  {
+   "type": "hr",
+   "t": 628.67,
+   "bpm": 105.4
+  },
+  {
+   "type": "rep",
+   "t": 629.55,
+   "exerciseId": "barbell-row",
+   "setIdx": 11,
+   "repIdx": 6,
+   "concentricVelocity": 1.138,
+   "romFrac": 0.654,
+   "durationS": 1.9
+  },
+  {
+   "type": "rep",
+   "t": 631.46,
+   "exerciseId": "barbell-row",
+   "setIdx": 11,
+   "repIdx": 7,
+   "concentricVelocity": 1.13,
+   "romFrac": 0.675,
+   "durationS": 1.9
+  },
+  {
+   "type": "rep",
+   "t": 634.13,
+   "exerciseId": "barbell-row",
+   "setIdx": 11,
+   "repIdx": 8,
+   "concentricVelocity": 1.07,
+   "romFrac": 1.0,
+   "durationS": 2.68
+  },
+  {
+   "type": "set_end",
+   "t": 634.13,
+   "exerciseId": "barbell-row",
+   "setIdx": 11
+  },
+  {
+   "type": "hr",
+   "t": 634.47,
+   "bpm": 110.9
+  },
+  {
+   "type": "hr",
+   "t": 640.27,
+   "bpm": 112.6
+  },
+  {
+   "type": "hr",
+   "t": 646.07,
+   "bpm": 112.1
+  },
+  {
+   "type": "hr",
+   "t": 651.87,
+   "bpm": 109.7
+  },
+  {
+   "type": "hr",
+   "t": 657.63,
+   "bpm": 108.3
+  },
+  {
+   "type": "hr",
+   "t": 663.33,
+   "bpm": 108.3
+  },
+  {
+   "type": "set_start",
+   "t": 664.33,
+   "exerciseId": "sit-up",
+   "setIdx": 12
+  },
+  {
+   "type": "rep",
+   "t": 665.52,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 0,
+   "concentricVelocity": 1.662,
+   "romFrac": 0.441,
+   "durationS": 1.18
+  },
+  {
+   "type": "rep",
+   "t": 666.38,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 1,
+   "concentricVelocity": 1.411,
+   "romFrac": 0.315,
+   "durationS": 0.87
+  },
+  {
+   "type": "rep",
+   "t": 667.27,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 2,
+   "concentricVelocity": 1.794,
+   "romFrac": 0.362,
+   "durationS": 0.89
+  },
+  {
+   "type": "rep",
+   "t": 668.19,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 3,
+   "concentricVelocity": 1.607,
+   "romFrac": 0.371,
+   "durationS": 0.91
+  },
+  {
+   "type": "hr",
+   "t": 668.9,
+   "bpm": 108.1
+  },
+  {
+   "type": "rep",
+   "t": 669.11,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 4,
+   "concentricVelocity": 1.806,
+   "romFrac": 0.386,
+   "durationS": 0.92
+  },
+  {
+   "type": "rep",
+   "t": 670.02,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 5,
+   "concentricVelocity": 1.504,
+   "romFrac": 0.36,
+   "durationS": 0.91
+  },
+  {
+   "type": "rep",
+   "t": 670.98,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 6,
+   "concentricVelocity": 1.727,
+   "romFrac": 0.327,
+   "durationS": 0.96
+  },
+  {
+   "type": "rep",
+   "t": 671.93,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 7,
+   "concentricVelocity": 1.465,
+   "romFrac": 0.319,
+   "durationS": 0.96
+  },
+  {
+   "type": "rep",
+   "t": 672.85,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 8,
+   "concentricVelocity": 1.547,
+   "romFrac": 0.301,
+   "durationS": 0.91
+  },
+  {
+   "type": "rep",
+   "t": 673.76,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 9,
+   "concentricVelocity": 1.486,
+   "romFrac": 0.319,
+   "durationS": 0.91
+  },
+  {
+   "type": "hr",
+   "t": 674.47,
+   "bpm": 109.3
+  },
+  {
+   "type": "rep",
+   "t": 674.72,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 10,
+   "concentricVelocity": 1.684,
+   "romFrac": 0.313,
+   "durationS": 0.96
+  },
+  {
+   "type": "rep",
+   "t": 675.71,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 11,
+   "concentricVelocity": 1.493,
+   "romFrac": 0.333,
+   "durationS": 0.99
+  },
+  {
+   "type": "rep",
+   "t": 676.7,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 12,
+   "concentricVelocity": 1.816,
+   "romFrac": 0.343,
+   "durationS": 0.99
+  },
+  {
+   "type": "rep",
+   "t": 677.67,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 13,
+   "concentricVelocity": 1.465,
+   "romFrac": 0.331,
+   "durationS": 0.97
+  },
+  {
+   "type": "rep",
+   "t": 678.7,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 14,
+   "concentricVelocity": 1.689,
+   "romFrac": 0.318,
+   "durationS": 1.02
+  },
+  {
+   "type": "rep",
+   "t": 679.73,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 15,
+   "concentricVelocity": 1.464,
+   "romFrac": 0.323,
+   "durationS": 1.03
+  },
+  {
+   "type": "hr",
+   "t": 679.93,
+   "bpm": 99.5
+  },
+  {
+   "type": "rep",
+   "t": 680.78,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 16,
+   "concentricVelocity": 1.689,
+   "romFrac": 0.306,
+   "durationS": 1.06
+  },
+  {
+   "type": "rep",
+   "t": 681.81,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 17,
+   "concentricVelocity": 1.567,
+   "romFrac": 0.338,
+   "durationS": 1.02
+  },
+  {
+   "type": "rep",
+   "t": 683.33,
+   "exerciseId": "sit-up",
+   "setIdx": 12,
+   "repIdx": 18,
+   "concentricVelocity": 2.087,
+   "romFrac": 0.554,
+   "durationS": 1.53
+  },
+  {
+   "type": "set_end",
+   "t": 683.33,
+   "exerciseId": "sit-up",
+   "setIdx": 12
+  },
+  {
+   "type": "hr",
+   "t": 685.43,
+   "bpm": 103.2
+  },
+  {
+   "type": "hr",
+   "t": 690.9,
+   "bpm": 104.4
+  },
+  {
+   "type": "hr",
+   "t": 696.33,
+   "bpm": 100.2
+  },
+  {
+   "type": "hr",
+   "t": 701.83,
+   "bpm": 100.2
+  },
+  {
+   "type": "hr",
+   "t": 707.33,
+   "bpm": 98.5
+  },
+  {
+   "type": "hr",
+   "t": 712.8,
+   "bpm": 94.2
+  },
+  {
+   "type": "set_start",
+   "t": 717.4,
+   "exerciseId": "sit-up",
+   "setIdx": 13
+  },
+  {
+   "type": "hr",
+   "t": 718.3,
+   "bpm": 93.6
+  },
+  {
+   "type": "rep",
+   "t": 720.55,
+   "exerciseId": "sit-up",
+   "setIdx": 13,
+   "repIdx": 0,
+   "concentricVelocity": 1.785,
+   "romFrac": 1.0,
+   "durationS": 3.15
+  },
+  {
+   "type": "rep",
+   "t": 723.45,
+   "exerciseId": "sit-up",
+   "setIdx": 13,
+   "repIdx": 1,
+   "concentricVelocity": 1.578,
+   "romFrac": 0.998,
+   "durationS": 2.9
+  },
+  {
+   "type": "hr",
+   "t": 723.87,
+   "bpm": 94.2
+  },
+  {
+   "type": "rep",
+   "t": 726.44,
+   "exerciseId": "sit-up",
+   "setIdx": 13,
+   "repIdx": 2,
+   "concentricVelocity": 1.705,
+   "romFrac": 1.0,
+   "durationS": 3.0
+  },
+  {
+   "type": "rep",
+   "t": 728.92,
+   "exerciseId": "sit-up",
+   "setIdx": 13,
+   "repIdx": 3,
+   "concentricVelocity": 1.841,
+   "romFrac": 0.726,
+   "durationS": 2.48
+  },
+  {
+   "type": "hr",
+   "t": 729.37,
+   "bpm": 96.7
+  },
+  {
+   "type": "rep",
+   "t": 730.91,
+   "exerciseId": "sit-up",
+   "setIdx": 13,
+   "repIdx": 4,
+   "concentricVelocity": 2.496,
+   "romFrac": 0.718,
+   "durationS": 1.99
+  },
+  {
+   "type": "rep",
+   "t": 732.86,
+   "exerciseId": "sit-up",
+   "setIdx": 13,
+   "repIdx": 5,
+   "concentricVelocity": 2.492,
+   "romFrac": 0.661,
+   "durationS": 1.95
+  },
+  {
+   "type": "hr",
+   "t": 734.97,
+   "bpm": 98.3
+  },
+  {
+   "type": "rep",
+   "t": 735.18,
+   "exerciseId": "sit-up",
+   "setIdx": 13,
+   "repIdx": 6,
+   "concentricVelocity": 2.884,
+   "romFrac": 0.642,
+   "durationS": 2.32
+  },
+  {
+   "type": "rep",
+   "t": 737.2,
+   "exerciseId": "sit-up",
+   "setIdx": 13,
+   "repIdx": 7,
+   "concentricVelocity": 1.669,
+   "romFrac": 0.705,
+   "durationS": 2.02
+  },
+  {
+   "type": "set_end",
+   "t": 737.2,
+   "exerciseId": "sit-up",
+   "setIdx": 13
+  },
+  {
+   "type": "hr",
+   "t": 740.57,
+   "bpm": 100.4
+  },
+  {
+   "type": "hr",
+   "t": 746.33,
+   "bpm": 99.0
+  },
+  {
+   "type": "hr",
+   "t": 752.13,
+   "bpm": 98.9
+  },
+  {
+   "type": "hr",
+   "t": 757.93,
+   "bpm": 101.7
+  },
+  {
+   "type": "hr",
+   "t": 763.7,
+   "bpm": 104.2
+  },
+  {
+   "type": "hr",
+   "t": 769.4,
+   "bpm": 106.2
+  },
+  {
+   "type": "set_start",
+   "t": 772.27,
+   "exerciseId": "sit-up",
+   "setIdx": 14
+  },
+  {
+   "type": "rep",
+   "t": 773.74,
+   "exerciseId": "sit-up",
+   "setIdx": 14,
+   "repIdx": 0,
+   "concentricVelocity": 1.833,
+   "romFrac": 0.619,
+   "durationS": 1.48
+  },
+  {
+   "type": "hr",
+   "t": 774.97,
+   "bpm": 108.2
+  },
+  {
+   "type": "rep",
+   "t": 775.54,
+   "exerciseId": "sit-up",
+   "setIdx": 14,
+   "repIdx": 1,
+   "concentricVelocity": 1.517,
+   "romFrac": 0.635,
+   "durationS": 1.79
+  },
+  {
+   "type": "rep",
+   "t": 777.36,
+   "exerciseId": "sit-up",
+   "setIdx": 14,
+   "repIdx": 2,
+   "concentricVelocity": 1.479,
+   "romFrac": 0.615,
+   "durationS": 1.82
+  },
+  {
+   "type": "rep",
+   "t": 779.2,
+   "exerciseId": "sit-up",
+   "setIdx": 14,
+   "repIdx": 3,
+   "concentricVelocity": 1.559,
+   "romFrac": 0.64,
+   "durationS": 1.84
+  },
+  {
+   "type": "hr",
+   "t": 780.47,
+   "bpm": 108.2
+  },
+  {
+   "type": "rep",
+   "t": 781.07,
+   "exerciseId": "sit-up",
+   "setIdx": 14,
+   "repIdx": 4,
+   "concentricVelocity": 1.587,
+   "romFrac": 0.687,
+   "durationS": 1.86
+  },
+  {
+   "type": "rep",
+   "t": 782.95,
+   "exerciseId": "sit-up",
+   "setIdx": 14,
+   "repIdx": 5,
+   "concentricVelocity": 1.527,
+   "romFrac": 0.634,
+   "durationS": 1.88
+  },
+  {
+   "type": "rep",
+   "t": 784.85,
+   "exerciseId": "sit-up",
+   "setIdx": 14,
+   "repIdx": 6,
+   "concentricVelocity": 1.525,
+   "romFrac": 0.653,
+   "durationS": 1.9
+  },
+  {
+   "type": "hr",
+   "t": 786.0,
+   "bpm": 98.1
+  },
+  {
+   "type": "rep",
+   "t": 786.76,
+   "exerciseId": "sit-up",
+   "setIdx": 14,
+   "repIdx": 7,
+   "concentricVelocity": 1.588,
+   "romFrac": 0.654,
+   "durationS": 1.92
+  },
+  {
+   "type": "rep",
+   "t": 788.7,
+   "exerciseId": "sit-up",
+   "setIdx": 14,
+   "repIdx": 8,
+   "concentricVelocity": 1.674,
+   "romFrac": 0.687,
+   "durationS": 1.93
+  },
+  {
+   "type": "rep",
+   "t": 791.13,
+   "exerciseId": "sit-up",
+   "setIdx": 14,
+   "repIdx": 9,
+   "concentricVelocity": 1.814,
+   "romFrac": 0.824,
+   "durationS": 2.44
+  },
+  {
+   "type": "set_end",
+   "t": 791.13,
+   "exerciseId": "sit-up",
+   "setIdx": 14
+  },
+  {
+   "type": "hr",
+   "t": 791.5,
+   "bpm": 100.3
+  },
+  {
+   "type": "hr",
+   "t": 797.1,
+   "bpm": 100.6
+  },
+  {
+   "type": "hr",
+   "t": 802.8,
+   "bpm": 103.8
+  },
+  {
+   "type": "hr",
+   "t": 808.53,
+   "bpm": 107.4
+  },
+  {
+   "type": "set_start",
+   "t": 811.23,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15
+  },
+  {
+   "type": "rep",
+   "t": 812.82,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 0,
+   "concentricVelocity": 1.056,
+   "romFrac": 1.0,
+   "durationS": 1.59
+  },
+  {
+   "type": "rep",
+   "t": 813.82,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 1,
+   "concentricVelocity": 1.507,
+   "romFrac": 0.72,
+   "durationS": 1.0
+  },
+  {
+   "type": "hr",
+   "t": 814.13,
+   "bpm": 110.8
+  },
+  {
+   "type": "rep",
+   "t": 814.86,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 2,
+   "concentricVelocity": 1.242,
+   "romFrac": 0.744,
+   "durationS": 1.04
+  },
+  {
+   "type": "rep",
+   "t": 815.96,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 3,
+   "concentricVelocity": 1.89,
+   "romFrac": 0.841,
+   "durationS": 1.1
+  },
+  {
+   "type": "rep",
+   "t": 816.99,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 4,
+   "concentricVelocity": 1.391,
+   "romFrac": 0.756,
+   "durationS": 1.03
+  },
+  {
+   "type": "rep",
+   "t": 817.97,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 5,
+   "concentricVelocity": 1.528,
+   "romFrac": 0.742,
+   "durationS": 0.98
+  },
+  {
+   "type": "rep",
+   "t": 819.03,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 6,
+   "concentricVelocity": 1.368,
+   "romFrac": 0.73,
+   "durationS": 1.06
+  },
+  {
+   "type": "hr",
+   "t": 819.73,
+   "bpm": 115.7
+  },
+  {
+   "type": "rep",
+   "t": 820.07,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 7,
+   "concentricVelocity": 1.463,
+   "romFrac": 0.727,
+   "durationS": 1.03
+  },
+  {
+   "type": "rep",
+   "t": 821.15,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 8,
+   "concentricVelocity": 1.313,
+   "romFrac": 0.688,
+   "durationS": 1.08
+  },
+  {
+   "type": "rep",
+   "t": 822.27,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 9,
+   "concentricVelocity": 1.612,
+   "romFrac": 0.745,
+   "durationS": 1.12
+  },
+  {
+   "type": "rep",
+   "t": 823.39,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 10,
+   "concentricVelocity": 1.246,
+   "romFrac": 0.671,
+   "durationS": 1.11
+  },
+  {
+   "type": "rep",
+   "t": 824.49,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 11,
+   "concentricVelocity": 1.482,
+   "romFrac": 0.694,
+   "durationS": 1.11
+  },
+  {
+   "type": "hr",
+   "t": 825.37,
+   "bpm": 119.6
+  },
+  {
+   "type": "rep",
+   "t": 825.58,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 12,
+   "concentricVelocity": 1.471,
+   "romFrac": 0.735,
+   "durationS": 1.08
+  },
+  {
+   "type": "rep",
+   "t": 826.67,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 13,
+   "concentricVelocity": 1.616,
+   "romFrac": 0.777,
+   "durationS": 1.09
+  },
+  {
+   "type": "rep",
+   "t": 827.82,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 14,
+   "concentricVelocity": 1.534,
+   "romFrac": 0.73,
+   "durationS": 1.15
+  },
+  {
+   "type": "rep",
+   "t": 828.94,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 15,
+   "concentricVelocity": 1.636,
+   "romFrac": 0.78,
+   "durationS": 1.12
+  },
+  {
+   "type": "rep",
+   "t": 830.15,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 16,
+   "concentricVelocity": 1.773,
+   "romFrac": 0.784,
+   "durationS": 1.21
+  },
+  {
+   "type": "hr",
+   "t": 830.97,
+   "bpm": 118.5
+  },
+  {
+   "type": "rep",
+   "t": 831.33,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 17,
+   "concentricVelocity": 1.71,
+   "romFrac": 0.794,
+   "durationS": 1.17
+  },
+  {
+   "type": "rep",
+   "t": 832.6,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15,
+   "repIdx": 18,
+   "concentricVelocity": 1.575,
+   "romFrac": 0.97,
+   "durationS": 1.27
+  },
+  {
+   "type": "set_end",
+   "t": 832.6,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 15
+  },
+  {
+   "type": "hr",
+   "t": 836.7,
+   "bpm": 119.0
+  },
+  {
+   "type": "hr",
+   "t": 842.47,
+   "bpm": 117.5
+  },
+  {
+   "type": "hr",
+   "t": 848.2,
+   "bpm": 117.8
+  },
+  {
+   "type": "hr",
+   "t": 853.97,
+   "bpm": 115.1
+  },
+  {
+   "type": "hr",
+   "t": 859.7,
+   "bpm": 115.3
+  },
+  {
+   "type": "hr",
+   "t": 865.43,
+   "bpm": 110.6
+  },
+  {
+   "type": "hr",
+   "t": 871.2,
+   "bpm": 103.6
+  },
+  {
+   "type": "hr",
+   "t": 877.0,
+   "bpm": 103.6
+  },
+  {
+   "type": "hr",
+   "t": 882.77,
+   "bpm": 103.6
+  },
+  {
+   "type": "hr",
+   "t": 888.43,
+   "bpm": 101.0
+  },
+  {
+   "type": "set_start",
+   "t": 893.4,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16
+  },
+  {
+   "type": "hr",
+   "t": 894.17,
+   "bpm": 102.6
+  },
+  {
+   "type": "rep",
+   "t": 894.94,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 0,
+   "concentricVelocity": 1.247,
+   "romFrac": 1.0,
+   "durationS": 1.54
+  },
+  {
+   "type": "rep",
+   "t": 895.86,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 1,
+   "concentricVelocity": 1.306,
+   "romFrac": 0.71,
+   "durationS": 0.92
+  },
+  {
+   "type": "rep",
+   "t": 896.82,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 2,
+   "concentricVelocity": 1.289,
+   "romFrac": 0.756,
+   "durationS": 0.96
+  },
+  {
+   "type": "rep",
+   "t": 897.86,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 3,
+   "concentricVelocity": 1.645,
+   "romFrac": 0.739,
+   "durationS": 1.04
+  },
+  {
+   "type": "rep",
+   "t": 898.9,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 4,
+   "concentricVelocity": 1.607,
+   "romFrac": 0.823,
+   "durationS": 1.04
+  },
+  {
+   "type": "rep",
+   "t": 899.84,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 5,
+   "concentricVelocity": 1.416,
+   "romFrac": 0.786,
+   "durationS": 0.94
+  },
+  {
+   "type": "hr",
+   "t": 899.87,
+   "bpm": 103.4
+  },
+  {
+   "type": "rep",
+   "t": 900.79,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 6,
+   "concentricVelocity": 1.192,
+   "romFrac": 0.765,
+   "durationS": 0.95
+  },
+  {
+   "type": "rep",
+   "t": 901.74,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 7,
+   "concentricVelocity": 1.459,
+   "romFrac": 0.736,
+   "durationS": 0.96
+  },
+  {
+   "type": "rep",
+   "t": 902.69,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 8,
+   "concentricVelocity": 1.417,
+   "romFrac": 0.784,
+   "durationS": 0.94
+  },
+  {
+   "type": "rep",
+   "t": 903.64,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 9,
+   "concentricVelocity": 1.55,
+   "romFrac": 0.812,
+   "durationS": 0.96
+  },
+  {
+   "type": "rep",
+   "t": 904.59,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 10,
+   "concentricVelocity": 1.205,
+   "romFrac": 0.654,
+   "durationS": 0.95
+  },
+  {
+   "type": "hr",
+   "t": 905.53,
+   "bpm": 102.7
+  },
+  {
+   "type": "rep",
+   "t": 905.58,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 11,
+   "concentricVelocity": 1.383,
+   "romFrac": 0.678,
+   "durationS": 0.99
+  },
+  {
+   "type": "rep",
+   "t": 906.58,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 12,
+   "concentricVelocity": 1.446,
+   "romFrac": 0.752,
+   "durationS": 1.0
+  },
+  {
+   "type": "rep",
+   "t": 907.64,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 13,
+   "concentricVelocity": 1.654,
+   "romFrac": 0.778,
+   "durationS": 1.06
+  },
+  {
+   "type": "rep",
+   "t": 908.74,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 14,
+   "concentricVelocity": 1.623,
+   "romFrac": 0.773,
+   "durationS": 1.11
+  },
+  {
+   "type": "rep",
+   "t": 909.76,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 15,
+   "concentricVelocity": 1.545,
+   "romFrac": 0.727,
+   "durationS": 1.02
+  },
+  {
+   "type": "rep",
+   "t": 910.86,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 16,
+   "concentricVelocity": 1.5,
+   "romFrac": 0.696,
+   "durationS": 1.09
+  },
+  {
+   "type": "hr",
+   "t": 911.17,
+   "bpm": 95.4
+  },
+  {
+   "type": "rep",
+   "t": 911.94,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 17,
+   "concentricVelocity": 1.508,
+   "romFrac": 0.715,
+   "durationS": 1.08
+  },
+  {
+   "type": "rep",
+   "t": 913.33,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16,
+   "repIdx": 18,
+   "concentricVelocity": 1.601,
+   "romFrac": 0.924,
+   "durationS": 1.39
+  },
+  {
+   "type": "set_end",
+   "t": 913.33,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 16
+  },
+  {
+   "type": "hr",
+   "t": 916.83,
+   "bpm": 97.0
+  },
+  {
+   "type": "hr",
+   "t": 922.63,
+   "bpm": 97.9
+  },
+  {
+   "type": "hr",
+   "t": 928.43,
+   "bpm": 99.1
+  },
+  {
+   "type": "hr",
+   "t": 934.2,
+   "bpm": 101.6
+  },
+  {
+   "type": "hr",
+   "t": 940.0,
+   "bpm": 102.2
+  },
+  {
+   "type": "hr",
+   "t": 945.77,
+   "bpm": 100.5
+  },
+  {
+   "type": "hr",
+   "t": 951.4,
+   "bpm": 101.1
+  },
+  {
+   "type": "hr",
+   "t": 956.97,
+   "bpm": 101.0
+  },
+  {
+   "type": "hr",
+   "t": 962.6,
+   "bpm": 96.5
+  },
+  {
+   "type": "hr",
+   "t": 968.2,
+   "bpm": 90.7
+  },
+  {
+   "type": "hr",
+   "t": 973.83,
+   "bpm": 87.9
+  },
+  {
+   "type": "hr",
+   "t": 979.43,
+   "bpm": 87.8
+  },
+  {
+   "type": "hr",
+   "t": 985.07,
+   "bpm": 86.7
+  },
+  {
+   "type": "hr",
+   "t": 990.67,
+   "bpm": 86.5
+  },
+  {
+   "type": "hr",
+   "t": 996.3,
+   "bpm": 88.9
+  },
+  {
+   "type": "hr",
+   "t": 1002.1,
+   "bpm": 88.9
+  },
+  {
+   "type": "hr",
+   "t": 1007.87,
+   "bpm": 88.1
+  },
+  {
+   "type": "hr",
+   "t": 1013.63,
+   "bpm": 89.4
+  },
+  {
+   "type": "hr",
+   "t": 1019.4,
+   "bpm": 86.9
+  },
+  {
+   "type": "hr",
+   "t": 1025.1,
+   "bpm": 87.0
+  },
+  {
+   "type": "hr",
+   "t": 1030.83,
+   "bpm": 86.4
+  },
+  {
+   "type": "hr",
+   "t": 1036.57,
+   "bpm": 86.5
+  },
+  {
+   "type": "set_start",
+   "t": 1042.0,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17
+  },
+  {
+   "type": "hr",
+   "t": 1042.27,
+   "bpm": 88.2
+  },
+  {
+   "type": "rep",
+   "t": 1043.78,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 0,
+   "concentricVelocity": 1.25,
+   "romFrac": 1.0,
+   "durationS": 1.78
+  },
+  {
+   "type": "rep",
+   "t": 1044.84,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 1,
+   "concentricVelocity": 1.433,
+   "romFrac": 0.702,
+   "durationS": 1.05
+  },
+  {
+   "type": "rep",
+   "t": 1045.85,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 2,
+   "concentricVelocity": 1.132,
+   "romFrac": 0.63,
+   "durationS": 1.01
+  },
+  {
+   "type": "rep",
+   "t": 1046.86,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 3,
+   "concentricVelocity": 1.412,
+   "romFrac": 0.683,
+   "durationS": 1.01
+  },
+  {
+   "type": "hr",
+   "t": 1047.87,
+   "bpm": 87.9
+  },
+  {
+   "type": "rep",
+   "t": 1047.94,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 4,
+   "concentricVelocity": 1.408,
+   "romFrac": 0.704,
+   "durationS": 1.08
+  },
+  {
+   "type": "rep",
+   "t": 1049.03,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 5,
+   "concentricVelocity": 1.583,
+   "romFrac": 0.708,
+   "durationS": 1.09
+  },
+  {
+   "type": "rep",
+   "t": 1050.04,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 6,
+   "concentricVelocity": 1.397,
+   "romFrac": 0.725,
+   "durationS": 1.02
+  },
+  {
+   "type": "rep",
+   "t": 1051.02,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 7,
+   "concentricVelocity": 1.545,
+   "romFrac": 0.743,
+   "durationS": 0.98
+  },
+  {
+   "type": "rep",
+   "t": 1052.03,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 8,
+   "concentricVelocity": 1.255,
+   "romFrac": 0.662,
+   "durationS": 1.0
+  },
+  {
+   "type": "rep",
+   "t": 1053.06,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 9,
+   "concentricVelocity": 1.527,
+   "romFrac": 0.725,
+   "durationS": 1.03
+  },
+  {
+   "type": "hr",
+   "t": 1053.47,
+   "bpm": 87.4
+  },
+  {
+   "type": "rep",
+   "t": 1054.13,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 10,
+   "concentricVelocity": 1.454,
+   "romFrac": 0.753,
+   "durationS": 1.08
+  },
+  {
+   "type": "rep",
+   "t": 1055.2,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 11,
+   "concentricVelocity": 1.584,
+   "romFrac": 0.747,
+   "durationS": 1.07
+  },
+  {
+   "type": "rep",
+   "t": 1056.27,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 12,
+   "concentricVelocity": 1.318,
+   "romFrac": 0.716,
+   "durationS": 1.07
+  },
+  {
+   "type": "rep",
+   "t": 1057.31,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 13,
+   "concentricVelocity": 1.543,
+   "romFrac": 0.73,
+   "durationS": 1.04
+  },
+  {
+   "type": "rep",
+   "t": 1058.41,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 14,
+   "concentricVelocity": 1.681,
+   "romFrac": 0.817,
+   "durationS": 1.1
+  },
+  {
+   "type": "hr",
+   "t": 1059.1,
+   "bpm": 86.6
+  },
+  {
+   "type": "rep",
+   "t": 1059.6,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 15,
+   "concentricVelocity": 1.752,
+   "romFrac": 0.781,
+   "durationS": 1.19
+  },
+  {
+   "type": "rep",
+   "t": 1060.77,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 16,
+   "concentricVelocity": 1.836,
+   "romFrac": 0.838,
+   "durationS": 1.17
+  },
+  {
+   "type": "rep",
+   "t": 1061.92,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 17,
+   "concentricVelocity": 1.74,
+   "romFrac": 0.768,
+   "durationS": 1.16
+  },
+  {
+   "type": "rep",
+   "t": 1063.17,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17,
+   "repIdx": 18,
+   "concentricVelocity": 1.374,
+   "romFrac": 0.78,
+   "durationS": 1.24
+  },
+  {
+   "type": "set_end",
+   "t": 1063.17,
+   "exerciseId": "triceps-pushdown",
+   "setIdx": 17
+  },
+  {
+   "type": "hr",
+   "t": 1064.7,
+   "bpm": 87.6
+  },
+  {
+   "type": "hr",
+   "t": 1070.5,
+   "bpm": 89.9
+  },
+  {
+   "type": "hr",
+   "t": 1076.17,
+   "bpm": 89.9
+  },
+  {
+   "type": "set_start",
+   "t": 1080.97,
+   "exerciseId": "db-curl",
+   "setIdx": 18
+  },
+  {
+   "type": "hr",
+   "t": 1081.9,
+   "bpm": 92.5
+  },
+  {
+   "type": "rep",
+   "t": 1085.11,
+   "exerciseId": "db-curl",
+   "setIdx": 18,
+   "repIdx": 0,
+   "concentricVelocity": 4.244,
+   "romFrac": 0.929,
+   "durationS": 4.15
+  },
+  {
+   "type": "hr",
+   "t": 1088.7,
+   "bpm": 91.3
+  },
+  {
+   "type": "rep",
+   "t": 1088.92,
+   "exerciseId": "db-curl",
+   "setIdx": 18,
+   "repIdx": 1,
+   "concentricVelocity": 3.6,
+   "romFrac": 0.91,
+   "durationS": 3.8
+  },
+  {
+   "type": "rep",
+   "t": 1092.73,
+   "exerciseId": "db-curl",
+   "setIdx": 18,
+   "repIdx": 2,
+   "concentricVelocity": 3.509,
+   "romFrac": 0.886,
+   "durationS": 3.81
+  },
+  {
+   "type": "hr",
+   "t": 1094.47,
+   "bpm": 88.8
+  },
+  {
+   "type": "rep",
+   "t": 1096.58,
+   "exerciseId": "db-curl",
+   "setIdx": 18,
+   "repIdx": 3,
+   "concentricVelocity": 3.756,
+   "romFrac": 0.917,
+   "durationS": 3.85
+  },
+  {
+   "type": "rep",
+   "t": 1100.2,
+   "exerciseId": "db-curl",
+   "setIdx": 18,
+   "repIdx": 4,
+   "concentricVelocity": 3.777,
+   "romFrac": 1.0,
+   "durationS": 3.62
+  },
+  {
+   "type": "set_end",
+   "t": 1100.2,
+   "exerciseId": "db-curl",
+   "setIdx": 18
+  },
+  {
+   "type": "hr",
+   "t": 1101.23,
+   "bpm": 87.9
+  },
+  {
+   "type": "hr",
+   "t": 1106.97,
+   "bpm": 87.3
+  },
+  {
+   "type": "hr",
+   "t": 1112.77,
+   "bpm": 83.1
+  },
+  {
+   "type": "hr",
+   "t": 1118.5,
+   "bpm": 81.5
+  },
+  {
+   "type": "set_start",
+   "t": 1120.57,
+   "exerciseId": "db-curl",
+   "setIdx": 19
+  },
+  {
+   "type": "hr",
+   "t": 1124.3,
+   "bpm": 81.8
+  },
+  {
+   "type": "rep",
+   "t": 1124.78,
+   "exerciseId": "db-curl",
+   "setIdx": 19,
+   "repIdx": 0,
+   "concentricVelocity": 4.336,
+   "romFrac": 0.919,
+   "durationS": 4.21
+  },
+  {
+   "type": "rep",
+   "t": 1128.72,
+   "exerciseId": "db-curl",
+   "setIdx": 19,
+   "repIdx": 1,
+   "concentricVelocity": 3.69,
+   "romFrac": 0.925,
+   "durationS": 3.94
+  },
+  {
+   "type": "hr",
+   "t": 1130.07,
+   "bpm": 81.4
+  },
+  {
+   "type": "rep",
+   "t": 1132.63,
+   "exerciseId": "db-curl",
+   "setIdx": 19,
+   "repIdx": 2,
+   "concentricVelocity": 3.645,
+   "romFrac": 0.959,
+   "durationS": 3.9
+  },
+  {
+   "type": "hr",
+   "t": 1135.87,
+   "bpm": 81.3
+  },
+  {
+   "type": "rep",
+   "t": 1136.55,
+   "exerciseId": "db-curl",
+   "setIdx": 19,
+   "repIdx": 3,
+   "concentricVelocity": 3.76,
+   "romFrac": 0.901,
+   "durationS": 3.92
+  },
+  {
+   "type": "rep",
+   "t": 1140.13,
+   "exerciseId": "db-curl",
+   "setIdx": 19,
+   "repIdx": 4,
+   "concentricVelocity": 3.535,
+   "romFrac": 0.919,
+   "durationS": 3.59
+  },
+  {
+   "type": "set_end",
+   "t": 1140.13,
+   "exerciseId": "db-curl",
+   "setIdx": 19
+  },
+  {
+   "type": "hr",
+   "t": 1141.67,
+   "bpm": 80.0
+  },
+  {
+   "type": "hr",
+   "t": 1147.43,
+   "bpm": 79.8
+  },
+  {
+   "type": "hr",
+   "t": 1153.13,
+   "bpm": 79.2
+  },
+  {
+   "type": "hr",
+   "t": 1158.77,
+   "bpm": 79.2
+  },
+  {
+   "type": "set_start",
+   "t": 1163.13,
+   "exerciseId": "db-curl",
+   "setIdx": 20
+  },
+  {
+   "type": "hr",
+   "t": 1164.5,
+   "bpm": 79.8
+  },
+  {
+   "type": "rep",
+   "t": 1167.3,
+   "exerciseId": "db-curl",
+   "setIdx": 20,
+   "repIdx": 0,
+   "concentricVelocity": 4.01,
+   "romFrac": 0.907,
+   "durationS": 4.16
+  },
+  {
+   "type": "hr",
+   "t": 1170.3,
+   "bpm": 80.7
+  },
+  {
+   "type": "rep",
+   "t": 1171.15,
+   "exerciseId": "db-curl",
+   "setIdx": 20,
+   "repIdx": 1,
+   "concentricVelocity": 3.716,
+   "romFrac": 0.906,
+   "durationS": 3.85
+  },
+  {
+   "type": "rep",
+   "t": 1175.04,
+   "exerciseId": "db-curl",
+   "setIdx": 20,
+   "repIdx": 2,
+   "concentricVelocity": 3.718,
+   "romFrac": 0.936,
+   "durationS": 3.9
+  },
+  {
+   "type": "hr",
+   "t": 1176.07,
+   "bpm": 81.3
+  },
+  {
+   "type": "rep",
+   "t": 1178.98,
+   "exerciseId": "db-curl",
+   "setIdx": 20,
+   "repIdx": 3,
+   "concentricVelocity": 3.94,
+   "romFrac": 0.978,
+   "durationS": 3.93
+  },
+  {
+   "type": "hr",
+   "t": 1181.87,
+   "bpm": 81.7
+  },
+  {
+   "type": "rep",
+   "t": 1182.67,
+   "exerciseId": "db-curl",
+   "setIdx": 20,
+   "repIdx": 4,
+   "concentricVelocity": 4.075,
+   "romFrac": 1.0,
+   "durationS": 3.69
+  },
+  {
+   "type": "set_end",
+   "t": 1182.67,
+   "exerciseId": "db-curl",
+   "setIdx": 20
+  },
+  {
+   "type": "hr",
+   "t": 1187.67,
+   "bpm": 82.1
+  },
+  {
+   "type": "hr",
+   "t": 1193.3,
+   "bpm": 82.7
+  },
+  {
+   "type": "hr",
+   "t": 1199.03,
+   "bpm": 82.8
+  },
+  {
+   "type": "hr",
+   "t": 1204.83,
+   "bpm": 85.0
+  },
+  {
+   "type": "hr",
+   "t": 1210.6,
+   "bpm": 85.2
+  },
+  {
+   "type": "hr",
+   "t": 1216.4,
+   "bpm": 88.5
+  },
+  {
+   "type": "set_start",
+   "t": 1219.07,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21
+  },
+  {
+   "type": "rep",
+   "t": 1220.34,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21,
+   "repIdx": 0,
+   "concentricVelocity": 1.636,
+   "romFrac": 0.413,
+   "durationS": 1.27
+  },
+  {
+   "type": "hr",
+   "t": 1222.1,
+   "bpm": 95.3
+  },
+  {
+   "type": "rep",
+   "t": 1222.55,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21,
+   "repIdx": 1,
+   "concentricVelocity": 2.913,
+   "romFrac": 0.646,
+   "durationS": 2.21
+  },
+  {
+   "type": "rep",
+   "t": 1224.68,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21,
+   "repIdx": 2,
+   "concentricVelocity": 2.684,
+   "romFrac": 0.662,
+   "durationS": 2.13
+  },
+  {
+   "type": "rep",
+   "t": 1226.68,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21,
+   "repIdx": 3,
+   "concentricVelocity": 2.867,
+   "romFrac": 0.644,
+   "durationS": 2.0
+  },
+  {
+   "type": "hr",
+   "t": 1227.67,
+   "bpm": 96.4
+  },
+  {
+   "type": "rep",
+   "t": 1228.76,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21,
+   "repIdx": 4,
+   "concentricVelocity": 3.856,
+   "romFrac": 0.677,
+   "durationS": 2.07
+  },
+  {
+   "type": "rep",
+   "t": 1230.91,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21,
+   "repIdx": 5,
+   "concentricVelocity": 2.914,
+   "romFrac": 0.652,
+   "durationS": 2.15
+  },
+  {
+   "type": "rep",
+   "t": 1233.01,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21,
+   "repIdx": 6,
+   "concentricVelocity": 3.116,
+   "romFrac": 0.676,
+   "durationS": 2.11
+  },
+  {
+   "type": "hr",
+   "t": 1233.27,
+   "bpm": 96.8
+  },
+  {
+   "type": "rep",
+   "t": 1235.19,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21,
+   "repIdx": 7,
+   "concentricVelocity": 3.252,
+   "romFrac": 0.701,
+   "durationS": 2.18
+  },
+  {
+   "type": "rep",
+   "t": 1237.39,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21,
+   "repIdx": 8,
+   "concentricVelocity": 3.286,
+   "romFrac": 0.678,
+   "durationS": 2.2
+  },
+  {
+   "type": "hr",
+   "t": 1238.87,
+   "bpm": 94.7
+  },
+  {
+   "type": "rep",
+   "t": 1240.67,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21,
+   "repIdx": 9,
+   "concentricVelocity": 2.544,
+   "romFrac": 1.0,
+   "durationS": 3.27
+  },
+  {
+   "type": "set_end",
+   "t": 1240.67,
+   "exerciseId": "lateral-raise",
+   "setIdx": 21
+  },
+  {
+   "type": "hr",
+   "t": 1244.53,
+   "bpm": 96.2
+  },
+  {
+   "type": "hr",
+   "t": 1251.27,
+   "bpm": 95.8
+  },
+  {
+   "type": "hr",
+   "t": 1257.07,
+   "bpm": 94.5
+  },
+  {
+   "type": "set_start",
+   "t": 1257.77,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22
+  },
+  {
+   "type": "rep",
+   "t": 1259.09,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22,
+   "repIdx": 0,
+   "concentricVelocity": 1.443,
+   "romFrac": 0.383,
+   "durationS": 1.32
+  },
+  {
+   "type": "rep",
+   "t": 1261.37,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22,
+   "repIdx": 1,
+   "concentricVelocity": 3.315,
+   "romFrac": 0.638,
+   "durationS": 2.28
+  },
+  {
+   "type": "hr",
+   "t": 1262.67,
+   "bpm": 94.9
+  },
+  {
+   "type": "rep",
+   "t": 1263.61,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22,
+   "repIdx": 2,
+   "concentricVelocity": 2.996,
+   "romFrac": 0.669,
+   "durationS": 2.25
+  },
+  {
+   "type": "rep",
+   "t": 1265.92,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22,
+   "repIdx": 3,
+   "concentricVelocity": 3.508,
+   "romFrac": 0.645,
+   "durationS": 2.31
+  },
+  {
+   "type": "rep",
+   "t": 1268.21,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22,
+   "repIdx": 4,
+   "concentricVelocity": 3.251,
+   "romFrac": 0.714,
+   "durationS": 2.29
+  },
+  {
+   "type": "hr",
+   "t": 1268.27,
+   "bpm": 92.8
+  },
+  {
+   "type": "rep",
+   "t": 1270.46,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22,
+   "repIdx": 5,
+   "concentricVelocity": 3.246,
+   "romFrac": 0.7,
+   "durationS": 2.25
+  },
+  {
+   "type": "rep",
+   "t": 1272.78,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22,
+   "repIdx": 6,
+   "concentricVelocity": 3.249,
+   "romFrac": 0.681,
+   "durationS": 2.32
+  },
+  {
+   "type": "hr",
+   "t": 1273.87,
+   "bpm": 89.4
+  },
+  {
+   "type": "rep",
+   "t": 1275.18,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22,
+   "repIdx": 7,
+   "concentricVelocity": 3.462,
+   "romFrac": 0.664,
+   "durationS": 2.4
+  },
+  {
+   "type": "rep",
+   "t": 1277.57,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22,
+   "repIdx": 8,
+   "concentricVelocity": 3.013,
+   "romFrac": 0.758,
+   "durationS": 2.4
+  },
+  {
+   "type": "hr",
+   "t": 1279.6,
+   "bpm": 84.5
+  },
+  {
+   "type": "rep",
+   "t": 1280.8,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22,
+   "repIdx": 9,
+   "concentricVelocity": 2.765,
+   "romFrac": 1.0,
+   "durationS": 3.23
+  },
+  {
+   "type": "set_end",
+   "t": 1280.8,
+   "exerciseId": "lateral-raise",
+   "setIdx": 22
+  },
+  {
+   "type": "hr",
+   "t": 1285.3,
+   "bpm": 79.7
+  },
+  {
+   "type": "hr",
+   "t": 1291.03,
+   "bpm": 77.8
+  },
+  {
+   "type": "hr",
+   "t": 1296.83,
+   "bpm": 76.7
+  },
+  {
+   "type": "set_start",
+   "t": 1296.97,
+   "exerciseId": "lateral-raise",
+   "setIdx": 23
+  },
+  {
+   "type": "rep",
+   "t": 1300.44,
+   "exerciseId": "lateral-raise",
+   "setIdx": 23,
+   "repIdx": 0,
+   "concentricVelocity": 2.032,
+   "romFrac": 0.913,
+   "durationS": 3.47
+  },
+  {
+   "type": "hr",
+   "t": 1302.47,
+   "bpm": 74.4
+  },
+  {
+   "type": "rep",
+   "t": 1302.64,
+   "exerciseId": "lateral-raise",
+   "setIdx": 23,
+   "repIdx": 1,
+   "concentricVelocity": 2.599,
+   "romFrac": 0.609,
+   "durationS": 2.2
+  },
+  {
+   "type": "rep",
+   "t": 1304.8,
+   "exerciseId": "lateral-raise",
+   "setIdx": 23,
+   "repIdx": 2,
+   "concentricVelocity": 2.868,
+   "romFrac": 0.629,
+   "durationS": 2.16
+  },
+  {
+   "type": "rep",
+   "t": 1306.87,
+   "exerciseId": "lateral-raise",
+   "setIdx": 23,
+   "repIdx": 3,
+   "concentricVelocity": 2.604,
+   "romFrac": 0.74,
+   "durationS": 2.06
+  },
+  {
+   "type": "hr",
+   "t": 1307.97,
+   "bpm": 75.2
+  },
+  {
+   "type": "rep",
+   "t": 1308.92,
+   "exerciseId": "lateral-raise",
+   "setIdx": 23,
+   "repIdx": 4,
+   "concentricVelocity": 2.879,
+   "romFrac": 0.609,
+   "durationS": 2.05
+  },
+  {
+   "type": "rep",
+   "t": 1311.03,
+   "exerciseId": "lateral-raise",
+   "setIdx": 23,
+   "repIdx": 5,
+   "concentricVelocity": 3.048,
+   "romFrac": 0.637,
+   "durationS": 2.12
+  },
+  {
+   "type": "rep",
+   "t": 1313.18,
+   "exerciseId": "lateral-raise",
+   "setIdx": 23,
+   "repIdx": 6,
+   "concentricVelocity": 2.822,
+   "romFrac": 0.662,
+   "durationS": 2.14
+  },
+  {
+   "type": "hr",
+   "t": 1313.5,
+   "bpm": 72.8
+  },
+  {
+   "type": "rep",
+   "t": 1315.96,
+   "exerciseId": "lateral-raise",
+   "setIdx": 23,
+   "repIdx": 7,
+   "concentricVelocity": 2.357,
+   "romFrac": 0.94,
+   "durationS": 2.78
+  },
+  {
+   "type": "rep",
+   "t": 1318.3,
+   "exerciseId": "lateral-raise",
+   "setIdx": 23,
+   "repIdx": 8,
+   "concentricVelocity": 2.287,
+   "romFrac": 0.786,
+   "durationS": 2.34
+  },
+  {
+   "type": "set_end",
+   "t": 1318.3,
+   "exerciseId": "lateral-raise",
+   "setIdx": 23
+  },
+  {
+   "type": "hr",
+   "t": 1319.1,
+   "bpm": 72.9
+  },
+  {
+   "type": "hr",
+   "t": 1324.77,
+   "bpm": 74.4
+  },
+  {
+   "type": "set_start",
+   "t": 1330.43,
+   "exerciseId": "walking-lunge",
+   "setIdx": 24
+  },
+  {
+   "type": "hr",
+   "t": 1330.57,
+   "bpm": 74.8
+  },
+  {
+   "type": "rep",
+   "t": 1332.58,
+   "exerciseId": "walking-lunge",
+   "setIdx": 24,
+   "repIdx": 0,
+   "concentricVelocity": 0.546,
+   "romFrac": 0.646,
+   "durationS": 2.15
+  },
+  {
+   "type": "rep",
+   "t": 1335.68,
+   "exerciseId": "walking-lunge",
+   "setIdx": 24,
+   "repIdx": 1,
+   "concentricVelocity": 0.602,
+   "romFrac": 0.548,
+   "durationS": 3.1
+  },
+  {
+   "type": "hr",
+   "t": 1336.37,
+   "bpm": 75.3
+  },
+  {
+   "type": "rep",
+   "t": 1339.65,
+   "exerciseId": "walking-lunge",
+   "setIdx": 24,
+   "repIdx": 2,
+   "concentricVelocity": 0.744,
+   "romFrac": 0.938,
+   "durationS": 3.97
+  },
+  {
+   "type": "hr",
+   "t": 1342.13,
+   "bpm": 80.0
+  },
+  {
+   "type": "rep",
+   "t": 1344.1,
+   "exerciseId": "walking-lunge",
+   "setIdx": 24,
+   "repIdx": 3,
+   "concentricVelocity": 0.775,
+   "romFrac": 1.0,
+   "durationS": 4.45
+  },
+  {
+   "type": "rep",
+   "t": 1347.07,
+   "exerciseId": "walking-lunge",
+   "setIdx": 24,
+   "repIdx": 4,
+   "concentricVelocity": 0.511,
+   "romFrac": 0.612,
+   "durationS": 2.97
+  },
+  {
+   "type": "hr",
+   "t": 1347.93,
+   "bpm": 83.8
+  },
+  {
+   "type": "rep",
+   "t": 1349.81,
+   "exerciseId": "walking-lunge",
+   "setIdx": 24,
+   "repIdx": 5,
+   "concentricVelocity": 0.575,
+   "romFrac": 0.636,
+   "durationS": 2.74
+  },
+  {
+   "type": "rep",
+   "t": 1352.63,
+   "exerciseId": "walking-lunge",
+   "setIdx": 24,
+   "repIdx": 6,
+   "concentricVelocity": 0.536,
+   "romFrac": 0.562,
+   "durationS": 2.82
+  },
+  {
+   "type": "hr",
+   "t": 1353.7,
+   "bpm": 86.4
+  },
+  {
+   "type": "rep",
+   "t": 1358.2,
+   "exerciseId": "walking-lunge",
+   "setIdx": 24,
+   "repIdx": 7,
+   "concentricVelocity": 0.566,
+   "romFrac": 1.0,
+   "durationS": 5.57
+  },
+  {
+   "type": "set_end",
+   "t": 1358.2,
+   "exerciseId": "walking-lunge",
+   "setIdx": 24
+  },
+  {
+   "type": "hr",
+   "t": 1359.5,
+   "bpm": 88.3
+  },
+  {
+   "type": "hr",
+   "t": 1365.23,
+   "bpm": 89.0
+  },
+  {
+   "type": "hr",
+   "t": 1371.0,
+   "bpm": 97.5
+  },
+  {
+   "type": "hr",
+   "t": 1376.8,
+   "bpm": 129.8
+  },
+  {
+   "type": "hr",
+   "t": 1382.6,
+   "bpm": 137.5
+  },
+  {
+   "type": "hr",
+   "t": 1388.37,
+   "bpm": 142.9
+  },
+  {
+   "type": "hr",
+   "t": 1394.17,
+   "bpm": 142.1
+  },
+  {
+   "type": "hr",
+   "t": 1399.83,
+   "bpm": 132.8
+  },
+  {
+   "type": "hr",
+   "t": 1405.6,
+   "bpm": 132.7
+  },
+  {
+   "type": "hr",
+   "t": 1411.37,
+   "bpm": 134.6
+  },
+  {
+   "type": "hr",
+   "t": 1417.1,
+   "bpm": 135.5
+  },
+  {
+   "type": "hr",
+   "t": 1422.87,
+   "bpm": 122.7
+  },
+  {
+   "type": "hr",
+   "t": 1428.63,
+   "bpm": 116.3
+  },
+  {
+   "type": "hr",
+   "t": 1434.4,
+   "bpm": 115.6
+  },
+  {
+   "type": "set_start",
+   "t": 1437.57,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25
+  },
+  {
+   "type": "hr",
+   "t": 1440.13,
+   "bpm": 119.3
+  },
+  {
+   "type": "rep",
+   "t": 1440.41,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25,
+   "repIdx": 0,
+   "concentricVelocity": 0.566,
+   "romFrac": 0.729,
+   "durationS": 2.84
+  },
+  {
+   "type": "rep",
+   "t": 1442.93,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25,
+   "repIdx": 1,
+   "concentricVelocity": 0.495,
+   "romFrac": 0.554,
+   "durationS": 2.53
+  },
+  {
+   "type": "rep",
+   "t": 1445.62,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25,
+   "repIdx": 2,
+   "concentricVelocity": 0.618,
+   "romFrac": 0.75,
+   "durationS": 2.69
+  },
+  {
+   "type": "hr",
+   "t": 1445.97,
+   "bpm": 123.4
+  },
+  {
+   "type": "rep",
+   "t": 1448.48,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25,
+   "repIdx": 3,
+   "concentricVelocity": 0.517,
+   "romFrac": 0.762,
+   "durationS": 2.86
+  },
+  {
+   "type": "rep",
+   "t": 1451.17,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25,
+   "repIdx": 4,
+   "concentricVelocity": 0.62,
+   "romFrac": 0.778,
+   "durationS": 2.69
+  },
+  {
+   "type": "hr",
+   "t": 1451.77,
+   "bpm": 128.0
+  },
+  {
+   "type": "rep",
+   "t": 1453.74,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25,
+   "repIdx": 5,
+   "concentricVelocity": 0.499,
+   "romFrac": 0.655,
+   "durationS": 2.58
+  },
+  {
+   "type": "rep",
+   "t": 1456.41,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25,
+   "repIdx": 6,
+   "concentricVelocity": 0.485,
+   "romFrac": 0.674,
+   "durationS": 2.66
+  },
+  {
+   "type": "hr",
+   "t": 1457.57,
+   "bpm": 131.8
+  },
+  {
+   "type": "rep",
+   "t": 1459.11,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25,
+   "repIdx": 7,
+   "concentricVelocity": 0.471,
+   "romFrac": 0.675,
+   "durationS": 2.7
+  },
+  {
+   "type": "rep",
+   "t": 1461.74,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25,
+   "repIdx": 8,
+   "concentricVelocity": 0.542,
+   "romFrac": 0.658,
+   "durationS": 2.63
+  },
+  {
+   "type": "hr",
+   "t": 1463.33,
+   "bpm": 137.4
+  },
+  {
+   "type": "rep",
+   "t": 1464.57,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25,
+   "repIdx": 9,
+   "concentricVelocity": 0.434,
+   "romFrac": 0.921,
+   "durationS": 2.83
+  },
+  {
+   "type": "set_end",
+   "t": 1464.57,
+   "exerciseId": "walking-lunge",
+   "setIdx": 25
+  },
+  {
+   "type": "hr",
+   "t": 1469.1,
+   "bpm": 143.7
+  },
+  {
+   "type": "hr",
+   "t": 1474.9,
+   "bpm": 147.2
+  },
+  {
+   "type": "hr",
+   "t": 1480.63,
+   "bpm": 147.2
+  },
+  {
+   "type": "set_start",
+   "t": 1483.47,
+   "exerciseId": "walking-lunge",
+   "setIdx": 26
+  },
+  {
+   "type": "rep",
+   "t": 1485.99,
+   "exerciseId": "walking-lunge",
+   "setIdx": 26,
+   "repIdx": 0,
+   "concentricVelocity": 0.558,
+   "romFrac": 0.808,
+   "durationS": 2.52
+  },
+  {
+   "type": "hr",
+   "t": 1486.4,
+   "bpm": 146.4
+  },
+  {
+   "type": "rep",
+   "t": 1490.05,
+   "exerciseId": "walking-lunge",
+   "setIdx": 26,
+   "repIdx": 1,
+   "concentricVelocity": 0.502,
+   "romFrac": 0.923,
+   "durationS": 4.06
+  },
+  {
+   "type": "hr",
+   "t": 1492.2,
+   "bpm": 151.0
+  },
+  {
+   "type": "rep",
+   "t": 1493.85,
+   "exerciseId": "walking-lunge",
+   "setIdx": 26,
+   "repIdx": 2,
+   "concentricVelocity": 0.573,
+   "romFrac": 0.884,
+   "durationS": 3.8
+  },
+  {
+   "type": "rep",
+   "t": 1496.3,
+   "exerciseId": "walking-lunge",
+   "setIdx": 26,
+   "repIdx": 3,
+   "concentricVelocity": 0.54,
+   "romFrac": 0.685,
+   "durationS": 2.45
+  },
+  {
+   "type": "hr",
+   "t": 1498.0,
+   "bpm": 152.8
+  },
+  {
+   "type": "rep",
+   "t": 1498.81,
+   "exerciseId": "walking-lunge",
+   "setIdx": 26,
+   "repIdx": 4,
+   "concentricVelocity": 0.534,
+   "romFrac": 0.523,
+   "durationS": 2.51
+  },
+  {
+   "type": "rep",
+   "t": 1501.49,
+   "exerciseId": "walking-lunge",
+   "setIdx": 26,
+   "repIdx": 5,
+   "concentricVelocity": 0.612,
+   "romFrac": 0.707,
+   "durationS": 2.68
+  },
+  {
+   "type": "hr",
+   "t": 1503.77,
+   "bpm": 153.3
+  },
+  {
+   "type": "rep",
+   "t": 1504.02,
+   "exerciseId": "walking-lunge",
+   "setIdx": 26,
+   "repIdx": 6,
+   "concentricVelocity": 0.514,
+   "romFrac": 0.744,
+   "durationS": 2.53
+  },
+  {
+   "type": "rep",
+   "t": 1506.6,
+   "exerciseId": "walking-lunge",
+   "setIdx": 26,
+   "repIdx": 7,
+   "concentricVelocity": 0.547,
+   "romFrac": 0.718,
+   "durationS": 2.58
+  },
+  {
+   "type": "rep",
+   "t": 1509.5,
+   "exerciseId": "walking-lunge",
+   "setIdx": 26,
+   "repIdx": 8,
+   "concentricVelocity": 0.533,
+   "romFrac": 0.976,
+   "durationS": 2.9
+  },
+  {
+   "type": "set_end",
+   "t": 1509.5,
+   "exerciseId": "walking-lunge",
+   "setIdx": 26
+  },
+  {
+   "type": "hr",
+   "t": 1509.6,
+   "bpm": 154.5
+  },
+  {
+   "type": "hr",
+   "t": 1515.37,
+   "bpm": 156.4
+  }
+ ]
+}

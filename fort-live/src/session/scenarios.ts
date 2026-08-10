@@ -1,4 +1,5 @@
 import { generateSession, type PlannedSet } from './generator';
+import { MMFIT_SESSION } from './mmfit';
 import type { Session } from './types';
 
 const BODY_MASS_KG = 78;
@@ -75,6 +76,10 @@ export const SESSIONS: Session[] = [
     bodyMassKg: BODY_MASS_KG,
     events: generateSession(ordinary, { seed: 41 }),
   },
+  // Not generated. A real wrist, a real session, through the real classifier —
+  // and through the identical interface, which is the only reason it can sit in
+  // this list at all.
+  MMFIT_SESSION,
 ];
 
 export const DEFAULT_SESSION_ID = 'push-day';

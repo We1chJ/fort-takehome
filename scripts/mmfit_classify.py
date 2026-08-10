@@ -199,9 +199,227 @@ def build_dataset(drop_cardio=True):
 
 # ---------------------------------------------------------------- main
 
+# ---------------------------------------------------------------- emit
+
+# MM-Fit's ten classes onto fort-live's exercise ids. Nine map; the tenth is
+# cardio and the model never sees it.
+#
+# `dumbbell_rows -> barbell-row` is the one substitution rather than a match:
+# fort-live's curated free-exercise-db subset has no dumbbell row, and both
+# movements are a horizontal pull with `middle back` as the primary. It changes
+# nothing downstream — recruitment keys off the exercise record, not the name —
+# but it is a substitution and not a translation, so it is written down.
+MMFIT_TO_APP = {
+    "squats": "back-squat",
+    "pushups": "push-ups",
+    "situps": "sit-up",
+    "dumbbell_shoulder_press": "db-shoulder-press",
+    "lateral_shoulder_raises": "lateral-raise",
+    "bicep_curls": "db-curl",
+    "tricep_extensions": "triceps-pushdown",
+    "dumbbell_rows": "barbell-row",
+    "lunges": "walking-lunge",
+    "jumping_jacks": None,
+}
+
+PRE_ROLL_S = 25.0      # quiet lead-in before the first set, so the panel opens empty
+HR_EVERY_S = 5.0
+ROM_FLOOR = 0.15       # a detected rep always moved something
+
+
+def _rep_windows(times, dur_s, count):
+    """
+    Rep boundaries from detected peak times.
+
+    A peak marks the middle of a rep, not its edge, so the boundaries are the
+    midpoints between consecutive peaks. When the period-based count disagrees
+    with the number of peaks, the count is the more reliable figure (see
+    detect_reps) and the reps get spaced evenly instead.
+    """
+    if count <= 0:
+        return []
+    if len(times) != count:
+        step = dur_s / count
+        times = [(i + 0.5) * step for i in range(count)]
+    times = sorted(times)
+    edges = [0.0]
+    for a, b in zip(times, times[1:]):
+        edges.append((a + b) / 2.0)
+    edges.append(dur_s)
+    return [(edges[i], edges[i + 1], times[i]) for i in range(count)]
+
+
+def _wrist_speed(a_win, fs):
+    """
+    Mean wrist speed over a rep, m/s.
+
+    Integrating accelerometer data is normally a drift disaster. It is tolerable
+    here for one reason: the window is a single rep, roughly a second, and a rep
+    starts and ends at a turnaround where true velocity is ~0. Subtracting the
+    window mean kills any residual DC, and forcing the integral's endpoints to
+    zero removes the linear drift term. What survives is the shape of the rep.
+
+    This is the WRIST, not the bar. On a squat the wrist rides the bar and they
+    are nearly the same; on a curl they are not. The engine downstream only ever
+    compares a rep to other reps of the same movement, which is what makes the
+    quantity usable despite that.
+    """
+    if len(a_win) < 4:
+        return 0.0
+    dt = 1.0 / fs
+    a = a_win - a_win.mean(axis=0)                 # drop gravity / DC
+    v = np.cumsum(a, axis=0) * dt
+    n = len(v)
+    ramp = np.linspace(0.0, 1.0, n)[:, None]
+    v = v - ramp * v[-1]                           # endpoints back to zero
+    return float(np.linalg.norm(v, axis=1).mean())
+
+
+def emit_session(w, clf, X, y, groups, meta, out_path):
+    labels, acc_all, gyr_all = load_workout(w)
+    idx = [i for i, m in enumerate(meta) if m["w"] == w]
+    if not idx:
+        print(f"no sets for {w}", file=sys.stderr)
+        return
+
+    # --- per-set inference
+    sets = []
+    for i in idx:
+        m = meta[i]
+        pred = clf.predict(X[i:i + 1])[0]
+        app_id = MMFIT_TO_APP.get(pred)
+        if app_id is None:
+            continue
+        n, times = detect_reps(m["acc"], m["gyr"], m["dur"])
+        if n <= 0:
+            continue
+        sets.append({
+            "i": i, "m": m, "pred": pred, "true": y[i],
+            "appId": app_id, "reps": n, "times": times,
+        })
+    sets.sort(key=lambda s: s["m"]["f0"])
+
+    t0 = sets[0]["m"]["f0"] / FPS - PRE_ROLL_S
+
+    # --- per-rep kinematics
+    raw = []                                        # (setpos, repidx, rom_rad, vel, dur)
+    for sp, s in enumerate(sets):
+        m = s["m"]
+        a, g = m["acc"], m["gyr"]
+        dur = m["dur"]
+        fs = len(a) / dur
+        for r, (w0, w1, _peak) in enumerate(_rep_windows(s["times"], dur, s["reps"])):
+            i0, i1 = int(w0 * fs), max(int(w1 * fs), int(w0 * fs) + 4)
+            g_win, a_win = g[i0:i1], a[i0:i1]
+            if len(g_win) < 4:
+                continue
+            # total angular path of the wrist over the rep, radians
+            rom_rad = float(np.trapezoid(np.linalg.norm(g_win, axis=1), dx=1.0 / fs))
+            raw.append({
+                "setpos": sp, "repIdx": r,
+                "rom_rad": rom_rad,
+                "vel": _wrist_speed(a_win, fs),
+                "durationS": w1 - w0,
+                "t": m["f0"] / FPS + w1 - t0,
+            })
+
+    # ROM is normalised per exercise, against this session's own best rep of
+    # that movement. The schema asks for "a fraction of this lifter's full ROM"
+    # and one session is the largest window available here, so that is the
+    # window used. It is stated rather than smuggled.
+    by_ex = {}
+    for r in raw:
+        by_ex.setdefault(sets[r["setpos"]]["appId"], []).append(r["rom_rad"])
+    ref = {k: float(np.percentile(v, 95)) or 1.0 for k, v in by_ex.items()}
+
+    events = []
+    for sp, s in enumerate(sets):
+        m = s["m"]
+        start = m["f0"] / FPS - t0
+        end = m["f1"] / FPS - t0
+        events.append({"type": "set_start", "t": round(start, 2),
+                       "exerciseId": s["appId"], "setIdx": sp})
+        for r in [x for x in raw if x["setpos"] == sp]:
+            denom = ref.get(s["appId"], 1.0) or 1.0
+            events.append({
+                "type": "rep", "t": round(r["t"], 2),
+                "exerciseId": s["appId"], "setIdx": sp, "repIdx": r["repIdx"],
+                "concentricVelocity": round(r["vel"], 3),
+                "romFrac": round(min(1.0, max(ROM_FLOOR, r["rom_rad"] / denom)), 3),
+                "durationS": round(r["durationS"], 2),
+            })
+        events.append({"type": "set_end", "t": round(end, 2),
+                       "exerciseId": s["appId"], "setIdx": sp})
+
+    # --- real heart rate, subsampled to keep the stream event-sparse
+    hr_path = os.path.join(ROOT, w, f"{w}_sw_l_hr.npy")
+    hr_n = 0
+    if os.path.exists(hr_path):
+        hr = np.load(hr_path)
+        last = -1e9
+        end_t = max(e["t"] for e in events)
+        for frame, _ms, bpm in hr:
+            t = frame / FPS - t0
+            if t < 0 or t > end_t + 10:
+                continue
+            if t - last < HR_EVERY_S:
+                continue
+            last = t
+            events.append({"type": "hr", "t": round(t, 2), "bpm": round(float(bpm), 1)})
+            hr_n += 1
+
+    events.sort(key=lambda e: e["t"])
+
+    correct = sum(1 for s in sets if s["pred"] == s["true"])
+    rep_err = np.array([s["reps"] - s["m"]["reps"] for s in sets])
+    # Sets where the detector locked onto a harmonic of the true cadence and
+    # came out roughly double or roughly half. Worth naming separately: it is a
+    # different failure from being a rep or two off, and it is the one you can
+    # see on the screen.
+    octaves = int(np.sum((rep_err >= 4) | (rep_err <= -4)))
+    mae = float(np.abs(rep_err).mean())
+    session = {
+        "id": f"mmfit-{w}",
+        "label": f"MM-Fit {w} (real)",
+        "note": (
+            f"MM-Fit workout {w}, replayed through the Q1 classifier instead of the "
+            f"generator. Exercise labels are predictions from a model that never saw "
+            f"this workout — {correct}/{len(sets)} correct. Reps are detected, not "
+            f"counted: {mae:.1f} mean error, and {octaves} of {len(sets)} sets land an "
+            f"octave out (every true set here is 10 reps). Set timing and heart rate "
+            f"are measured."
+        ),
+        "bodyMassKg": 78,
+        "source": {
+            "dataset": "MM-Fit (MIT), left-wrist smartwatch IMU @ ~100 Hz + HR @ 1 Hz",
+            "workout": w,
+            "heldOut": True,
+            "setsEmitted": len(sets),
+            "exerciseAccuracy": round(correct / len(sets), 3),
+            "repMAE": round(mae, 2),
+            "repOctaveErrors": octaves,
+            "hrEvents": hr_n,
+            "measured": ["set boundaries", "set timing", "heart rate"],
+            "detected": [f"rep count and rep timing (MAE {mae:.2f}, {octaves} octave errors)"],
+            "derived": ["romFrac (wrist angular path, per-exercise normalised)",
+                        "concentricVelocity (wrist speed, integrated accel)"],
+            "invented": ["bodyMassKg"],
+        },
+        "events": events,
+    }
+
+    with open(out_path, "w") as f:
+        json.dump(session, f, indent=1)
+    print(f"\nwrote {len(events)} events / {len(sets)} sets -> {out_path}")
+    print(f"  exercise accuracy on {w}: {correct}/{len(sets)} = {correct/len(sets):.3f}")
+    print(f"  rep MAE on {w}: {float(np.abs(rep_err).mean()):.2f}")
+    print(f"  hr events: {hr_n}   session length: {max(e['t'] for e in events)/60:.1f} min")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--emit", metavar="WORKOUT", help="dump predictions for one workout")
+    ap.add_argument("--emit", metavar="WORKOUT", help="dump a SessionEvent stream for one workout")
+    ap.add_argument("--out", default="/tmp/mmfit_session.json")
     ap.add_argument("--keep-cardio", action="store_true")
     args = ap.parse_args()
 
@@ -261,26 +479,10 @@ def main():
 
     # ---- optional emit
     if args.emit:
+        # The held-out fit: this workout contributed nothing to the model that
+        # is about to label it. Anything less and the demo is a lookup table.
         clf.fit(X[groups != args.emit], y[groups != args.emit])
-        out = []
-        for i, m in enumerate(meta):
-            if m["w"] != args.emit:
-                continue
-            p = clf.predict(X[i:i + 1])[0]
-            n, times = detect_reps(m["acc"], m["gyr"], m["dur"])
-            out.append({
-                "startS": round(m["f0"] / FPS, 2),
-                "endS": round(m["f1"] / FPS, 2),
-                "predictedExercise": p,
-                "trueExercise": y[i],
-                "detectedReps": n,
-                "trueReps": m["reps"],
-                "repTimesS": [round(m["f0"] / FPS + t, 2) for t in times],
-            })
-        path = f"/tmp/{args.emit}_predictions.json"
-        with open(path, "w") as f:
-            json.dump(out, f, indent=2)
-        print(f"\nwrote {len(out)} sets -> {path}")
+        emit_session(args.emit, clf, X, y, groups, meta, args.out)
 
 
 if __name__ == "__main__":
