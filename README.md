@@ -7,15 +7,49 @@
    - montly report page for trend summaries and training advice, as well as an AI chat interface
    - family features to supportt remote care + health tracking for grandparents or children 
 
+---
 
-## Exercise classification from wrist IMU
+## Setup
 
-`scripts/mmfit_classify.py`. Trained and validated in one session against
-[MM-Fit](https://mmfit.github.io/).
+Two halves that run independently. **The dashboard needs only Node** — the model's output
+is committed at `fort-live/src/data/mmfit.json`, so the 1.6 GB dataset is only required if
+you want to retrain or re-emit.
+
+### Run the dashboard
 
 ```bash
-python3 scripts/mmfit_classify.py    # train + full report
-# every session the dashboard shows, straight from the model:
+cd fort-live
+npm install
+npm run dev -- --host      # prints a LAN URL as well as localhost:5173
+npm test                   # 73 engine tests
+npm run build              # production build into dist/
+```
+
+Open the localhost URL. On a desktop it renders inside a phone bezel; the bezel disappears
+below 620 px. **On a phone**, open the printed Network URL in Safari and Share → *Add to
+Home Screen* — it launches fullscreen with no browser chrome.
+
+The panel in the bottom-left is not part of the product; a real panel has no timeline. It
+exists so the demo can be driven, and it shows the raw `SessionEvent` stream scrolling past
+as the clock advances. Three real MM-Fit workouts are selectable — see *The model* below
+for why those three.
+
+### Run the model
+
+```bash
+python3 -m pip install scikit-learn scipy numpy
+
+# dataset, 1.6 GB zipped
+curl -O https://s3.eu-west-2.amazonaws.com/vradu.uk/mm-fit.zip && unzip mm-fit.zip
+
+python3 scripts/mmfit_classify.py     # train + full validation report, ~20 s
+```
+
+That prints every number quoted in this file, including all 21 validation folds.
+
+To regenerate what the dashboard plays:
+
+```bash
 python3 scripts/mmfit_classify.py --emit-all --out fort-live/src/data/mmfit.json
 ```
 
@@ -23,38 +57,40 @@ python3 scripts/mmfit_classify.py --emit-all --out fort-live/src/data/mmfit.json
 model fitted without it, its reps detected, its per-rep kinematics derived and its real
 heart-rate trace attached, then written in `fort-live`'s `SessionEvent` schema — three
 workouts playable, fifteen as the baseline history, three dropped for having no heart-rate
-stream. The dashboard has no generator behind it.
+stream. **The dashboard has no generator behind it**; `src/session/generator.ts` survives
+only as a test fixture, because the engine tests need controlled inputs (a set taken to
+exact failure, a set with a known ROM cut) that no real workout happens to contain.
 
-### Approach
+Deployment is a GitHub Actions workflow (`.github/workflows/pages.yml`) gated on `tsc` and
+the engine tests. It requires *Settings → Pages → Source: GitHub Actions* to be enabled on
+the repository.
+
+---
+
+## The model
+
+`scripts/mmfit_classify.py`, trained and validated against [MM-Fit](https://mmfit.github.io/).
 
 **No pretrained model, no neural network.** Feature engineering plus an ensemble of
-randomized decision trees. The whole thing fits in ~2 seconds on a laptop CPU.
+randomized decision trees — `ExtraTreesClassifier`, 400 trees, scikit-learn. No gradient
+descent, no epochs, no GPU. The whole thing fits in ~2 seconds on a laptop CPU.
 
 **Input.** Left-wrist accelerometer + gyroscope only (~103 Hz), sliced to each labelled
 set. Set boundaries are treated as given — that is `fort-live`'s stated contract, since
 Fort segments sets on-device. Right wrist, earbud, phone and pose streams are unused.
 
 **Features — 127 per set.** Eight channels (accel xyz, gyro xyz, accel magnitude, gyro
-magnitude), each reduced to 15 features:
-
-- *time domain* — mean, std, min, max, median, IQR, RMS, skew, kurtosis
-- *dynamics* — mean absolute jerk, jerk std, zero-crossing rate
-- *spectral* — dominant frequency in the 0.15–3.5 Hz rep band, that peak's share of total
-  power, spectral centroid
-
-Plus inter-axis correlations for the accel and gyro triads (6) and set duration (1).
-Magnitudes are used so wrist orientation doesn't dominate.
-
-**Model.** `ExtraTreesClassifier`, 400 trees, scikit-learn. No gradient descent, no epochs,
-no GPU.
-
-**Rep count is never a feature** — it is a prediction target for the rep detector.
+magnitude), each reduced to 15: *time domain* — mean, std, min, max, median, IQR, RMS,
+skew, kurtosis; *dynamics* — mean absolute jerk, jerk std, zero-crossing rate; *spectral* —
+dominant frequency in the 0.15–3.5 Hz rep band, that peak's share of total power, spectral
+centroid. Plus inter-axis correlations for the accel and gyro triads (6) and set duration
+(1). Magnitudes are used so wrist orientation doesn't dominate. **Rep count is never a
+feature** — it is a prediction target for the rep detector.
 
 ### Validation
 
-Two splits, both stricter than a random split.
-
-**Leave-one-workout-out**, 21 folds — no set from a held-out workout appears in training:
+Two splits, both stricter than a random split. **Leave-one-workout-out**, 21 folds — no set
+from a held-out workout appears in training:
 
 ```
 mean fold acc 0.980   std 0.048   min 0.833   max 1.000
@@ -73,8 +109,6 @@ pooled        0.980   (559 predictions)
 Nine classes (jumping jacks excluded — no row in the app's exercise ontology and no
 matching movement pattern), 559 sets, classes balanced at 56–65 sets each.
 
-### Results
-
 | Exercise | Recall |
 |---|---|
 | squats | **0.875** |
@@ -83,7 +117,76 @@ matching movement pattern), 559 sets, classes balanced at 56–65 sets each.
 | sit-ups | 0.985 |
 | push-ups, lateral raises, shoulder press, bicep curls, tricep extensions | 1.000 |
 
-Eleven errors in 559. Eight are the same confusion.
+Eleven errors in 559. Eight are the same confusion — see the findings below.
+
+**The subject-leakage caveat.** MM-Fit's 21 workouts come from 10 subjects, and the files
+carry no subject ID. In most folds the same person appears in train and test, so the model
+may be partly recognizing an individual's movement signature. The honest claim is **98%
+within-cohort, per-subject generalization unmeasured** — not "98% accuracy" flat. All
+eleven errors fall in w16, w17, w19 and w20, a clustering consistent with one subject whose
+form or watch orientation differs.
+
+### Rep detection — deterministic, and unvalidated
+
+No machine learning. Pure signal processing, in `detect_reps()`:
+
+1. Vector magnitude of gyro and accel, so orientation doesn't matter.
+2. 3rd-order Butterworth bandpass, 0.2–2.0 Hz — the plausible rep cadence band.
+3. **Autocorrelation** to find the dominant repetition period; the channel with the
+   stronger self-similarity at its own period wins.
+4. Peak-find with that period enforced as minimum spacing; reconcile against
+   `duration / period`.
+
+Counting peaks directly first gave **MAE 6.26 reps, bias +4.9** — it fired on sub-movements
+within each rep (descent, pause, lockout). Autocorrelation finds the repeating structure
+rather than individual bumps and dropped this to **MAE 1.88, bias +0.12** — which, per
+finding ② below, is still far worse than a constant.
+
+It also makes **octave errors**: on some sets it locks onto a harmonic of the cadence and
+returns roughly double or roughly half the true count. In the dashboard this is visible
+rather than patched — w14's triceps pushdown reads 19 reps where the truth is 10. An
+attempt to fix it by scoring candidate periods {T/2, T, 2T} on peak prominence and interval
+consistency made the overall figure *worse* (MAE 1.88 → 2.75): it rescued curls and triceps
+and wrecked pushups, rows and lunges. Reverted rather than shipped.
+
+MM-Fit ships **no per-rep timestamps at all**, so rep *timing* — the field `fort-live`'s
+`RepEvent.t` actually needs — has no ground truth here under any method. Video annotation
+or self-capture is the only way to check it.
+
+A defence of the DSP choice for Fort specifically: a bandpass plus an autocorrelation is a
+few hundred bytes of code running in microseconds on an MCU, against a model needing flash
+and inference time. For a device with a ~1 MB budget that is a reasonable engineering
+answer — provided it is labelled untested, which on this dataset it is.
+
+### MM-Fit's own baseline, for comparison
+
+**Their approach** — a three-stage multimodal deep model: a separate autoencoder per device
+and modality; those representations flattened and concatenated into a fully-connected
+multimodal autoencoder learning a shared cross-modal representation; a fully-connected
+classifier attached to it.
+
+**Their reported accuracy on unseen subjects:** 94% smartwatch-only, 85% smartphone-only,
+82% earbud. *(A ~96% multimodal figure appears in my earlier research pass but was not
+re-verified — treat it as unconfirmed.)*
+
+**These numbers are not directly comparable to the 98% above, and the difference favours
+them.** They perform continuous activity segmentation *and* recognition over an unbroken
+stream and evaluate on unseen subjects. This work is handed set boundaries and classifies
+a pre-segmented window, split by workout rather than by subject. **Set segmentation — the
+harder half — is assumed, not solved.**
+
+### The three workouts the dashboard plays
+
+Chosen because they differ in ways one workout could not show:
+
+| | |
+|---|---|
+| **w14** · 27 sets · 25 min | all nine movements; the classifier goes 27/27 |
+| **w09** · 27 sets · 56 min | identical work at half the pace |
+| **w20** · 24 sets · 47 min | 83% accurate, no shoulder press — kept deliberately |
+
+w20 is where finding ① shows up in the interface: its exercise list reads *lateral raise
+×6* and contains no squat at all, because the model read the squats as lateral raises.
 
 ---
 
@@ -103,10 +206,10 @@ exercise descriptions explain it:
 At the wrist these are close to the same movement: a slow, symmetric arm elevation to
 roughly horizontal at similar cadence. The legs do the squat, and the legs are invisible.
 
-This is the blind spot named in `fort-research.md` §7.7 ⑩, arrived at from measurement
-rather than quotation — and in a sharper form than the usual leg-press example: the squat,
-the most fundamental lower-body pattern, is misread as a shoulder isolation 12.5% of the
-time. The eight sets are enumerated in the script's output.
+This is the blind spot Fort has publicly acknowledged, arrived at from measurement rather
+than quotation — and in a sharper form than the usual leg-press example: the squat, the
+most fundamental lower-body pattern, is misread as a shoulder isolation 12.5% of the time.
+The eight sets are enumerated in the script's output.
 
 The lunge ↔ dumbbell-row pair (one error each way) has the same root — MM-Fit lunges are
 bodyweight with a bent-forward torso, and standing rows are *"slightly bent knees, hips
@@ -122,7 +225,7 @@ pushed back"*. Similar torso pitch, similar arm swing.
 ```
 
 So the trivial baseline — ignore the sensor, always answer "10" — scores **91.9% exact,
-97.9% within ±1, MAE 0.14 reps**. The DSP detector below scores 48.8% / 73.2% / 1.88.
+97.9% within ±1, MAE 0.14 reps**. The DSP detector scores 48.8% / 73.2% / 1.88.
 
 **A constant beats the detector by an order of magnitude.** There is no rep-count variance
 to predict, so any rep-counting claim from this dataset is unfalsifiable, and training a
@@ -134,67 +237,14 @@ failure produce 12, then 9, then 7. That variance is exactly what MM-Fit lacks.
 
 ---
 
-## Rep detection — deterministic, and unvalidated
+## Research
 
-No machine learning. Pure signal processing, in `detect_reps()`:
+Written before any code. Full ranking and rationale in
+[`datasets-and-training.md`](./datasets-and-training.md); the interpretation-layer design
+in [`narrative-layer.md`](./narrative-layer.md); early product notes in
+[`idea.md`](./idea.md). The dashboard's own design rationale lives in
+[`fort-live/README.md`](./fort-live/README.md).
 
-1. Vector magnitude of gyro and accel, so orientation doesn't matter.
-2. 3rd-order Butterworth bandpass, 0.2–2.0 Hz — the plausible rep cadence band.
-3. **Autocorrelation** to find the dominant repetition period; the channel with the
-   stronger self-similarity at its own period wins.
-4. Peak-find with that period enforced as minimum spacing; reconcile against
-   `duration / period`.
-
-Counting peaks directly first gave **MAE 6.26 reps, bias +4.9** — it fired on
-sub-movements within each rep (descent, pause, lockout). Autocorrelation finds the
-repeating structure rather than individual bumps and dropped this to **MAE 1.88, bias
-+0.12** — which, per finding ② above, is still far worse than a constant.
-
-MM-Fit ships **no per-rep timestamps at all**, so rep *timing* — the field `fort-live`'s
-`RepEvent.t` actually needs — has no ground truth here under any method. Video annotation
-or self-capture is the only way to check it.
-
-A defence of the DSP choice for Fort specifically: a bandpass plus an autocorrelation is a
-few hundred bytes of code running in microseconds on an MCU, against a model needing flash
-and inference time. For a device with a ~1 MB budget that is a reasonable engineering
-answer — provided it is labelled untested, which on this dataset it is.
-
----
-
-## MM-Fit's own baseline, for comparison
-
-**Their approach** — a three-stage multimodal deep model:
-
-1. A separate autoencoder per device and modality, learning modality-specific
-   representations.
-2. Those representations flattened and concatenated into a fully-connected multimodal
-   autoencoder, learning a shared cross-modal representation.
-3. A fully-connected classifier attached to that shared representation.
-
-**Their reported accuracy on unseen subjects:** 94% smartwatch-only, 85% smartphone-only,
-82% earbud. *(A ~96% multimodal figure appears in my earlier research pass but was not
-re-verified this session — treat it as unconfirmed.)*
-
-**These numbers are not directly comparable to the 98% above, and the difference favours
-them.** They perform continuous activity segmentation *and* recognition over an unbroken
-stream and evaluate on unseen subjects. This work is handed set boundaries and classifies
-a pre-segmented window, split by workout rather than by subject. **Set segmentation — the
-harder half — is assumed, not solved.**
-
-### The subject-leakage caveat
-
-MM-Fit's 21 workouts come from 10 subjects, and the files carry no subject ID. In most
-folds the same person appears in train and test, so the model may be partly recognizing an
-individual's movement signature. The honest claim is **98% within-cohort, per-subject
-generalization unmeasured** — not "98% accuracy" flat. All eleven errors fall in w16, w17,
-w19 and w20, a clustering consistent with one subject whose form or watch orientation
-differs.
-
----
-
-## Datasets surveyed
-
-Full ranking and rationale in [`datasets-and-training.md`](./datasets-and-training.md).
 The gap that matters: **no public dataset pairs wrist IMU + PPG with strength training and
 honest reps-in-reserve labels.**
 
@@ -249,23 +299,16 @@ band.** The differentiated angle is fitting this inside an MCU budget; see
 
 ---
 
-## Reproducing
-
-```bash
-# dataset (1.6 GB)
-curl -O https://s3.eu-west-2.amazonaws.com/vradu.uk/mm-fit.zip && unzip mm-fit.zip
-
-python3 -m pip install scikit-learn scipy numpy
-python3 scripts/mmfit_classify.py
-```
-
-Runs in about 20 seconds, including all 21 validation folds.
-
 ## What is not claimed
 
 - **Set segmentation** — assumed given, not solved. The harder half of the problem.
 - **Rep counting** — implemented, unvalidatable on this dataset.
 - **Rep timing** — no ground truth exists in MM-Fit.
-- **Velocity, ROM, reps-in-reserve** — not derived; MM-Fit ships none of them, and
-  `fort-live` suppresses these channels rather than displaying invented values.
+- **Velocity and ROM** — derived from wrist motion, not measured at the bar, and normalised
+  per session rather than against a calibrated range.
+- **Reps-in-reserve** — modelled from velocity loss, never measured.
 - **Per-subject generalization** — unmeasured, no subject IDs available.
+- **Body mass** — MM-Fit does not publish it; the energy estimate assumes 78 kg.
+- **The care tab's data** — the only synthetic data left in the repo. No public dataset
+  covers an elderly relative's shared health trends, and inventing one is clearly labelled
+  as such in `fort-live/src/data/careCircle.ts`.

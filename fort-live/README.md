@@ -18,7 +18,7 @@ share something with you. The circle in the corner answers questions about your 
 ```bash
 npm install
 npm run dev -- --host      # prints a LAN URL as well as localhost
-npm test                   # 67 engine tests
+npm test                   # 73 engine tests
 npm run build
 ```
 
@@ -27,8 +27,10 @@ It launches fullscreen with no browser chrome. On a desktop the same URL renders
 phone bezel; the bezel disappears below 620px or in standalone mode.
 
 The playback controls in the bottom-left are not part of the product — a real panel has no
-timeline. They exist so the demo can be driven. Three scenarios are included; each exists to
-make one behaviour visible.
+timeline. They exist so the demo can be driven, and they show the raw `SessionEvent` stream
+scrolling past as the clock advances. Three real MM-Fit workouts are selectable, chosen
+because they differ: w14 is 27 sets in 25 minutes at 27/27 classification, w09 is the same
+work at half the pace, and w20 is 83% accurate with no shoulder press at all.
 
 ---
 
